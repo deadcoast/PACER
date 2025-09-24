@@ -158,7 +158,7 @@ Choose the smallest thing that works. Keep each register self‑consistent.
 - **Quickstart:** [pacer-quickstart.md](pacer-quickstart.md) — 1‑page starter.  
 - **Rationale:** [pacer-rationale.md](pacer-rationale.md) — Design choices, DAG/DoD arguments.  
 - **Evidence Pack:** [pacer-evidence.md](pacer-evidence.md) — Templates, metrics, procedures.  
-- **Schema:** [pacer.schema.json](pacer.schema.json) — Validation.
+- **Schema:** [pacer.schema.json](docs/pacer/machine/pacer.schema.json) — Validation.
 
 ---
 

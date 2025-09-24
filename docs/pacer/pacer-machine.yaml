@@ -1,14 +1,14 @@
 pacer_version: '1.1'
 generated_at: '2025-01-27T00:00:00Z'
 spec_refs:
-  spec: pacer-spec-v1.md
+  spec: pacer-spec.md
   field_manual: pacer-field-manual.md
   quickstart: pacer-quickstart.md
   rationale: pacer-rationale.md
   evidence: pacer-evidence.md
   faq: pacer-faq.md
-  schema: pacer.schema.json
-  template_csv: pacer-template.csv
+  schema: docs/pacer/machine/pacer.schema.json
+  template_csv: docs/pacer/pacer-template.csv
 register:
   csv:
     encoding: utf-8
@@ -173,7 +173,7 @@ operations:
   immutable_fields:
   - ID
 validation:
-  schema_file: pacer.schema.json
+  schema_file: docs/pacer/machine/pacer.schema.json
   register_checks:
   - id: header_required_columns
     severity: error

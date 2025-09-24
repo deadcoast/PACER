@@ -187,7 +187,7 @@ A: Make modest, falsifiable claims: “Reduced cycle time variability after enfo
 - **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md) — §4 Data Model, §6 Status Lifecycle, §7 Dependencies, §9 Validation
 - **Field Manual:** [pacer-field-manual.md](docs/pacer/pacer-field-manual.md) — reports & daily ops
 - **Quickstart:** [pacer-quickstart.md](docs/pacer/pacer-quickstart.md)
-- **Schema:** [pacer.schema.json](docs/pacer/pacer.schema.json)
+- **Schema:** [pacer.schema.json](docs/pacer/machine/pacer.schema.json)
 
 ---
 

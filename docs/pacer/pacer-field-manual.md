@@ -174,7 +174,7 @@ Unless overridden, each owner keeps ≤ 3 active PACs in DOING.
 - Afterward, reconcile dependencies; avoid repeated overrides (see **Spec §7.4**).
 
 ### 7.5 Import/Export
-- CSV is the source; JSON export MAY be used for validation against `pacer.schema.json`.  
+- CSV is the source; JSON export MAY be used for validation against `docs/pacer/machine/pacer.schema.json`.  
 - Keep headers exact. Preserve unknown columns on round-trip (see **Spec §8**).
 
 ---
@@ -224,7 +224,7 @@ Unless overridden, each owner keeps ≤ 3 active PACs in DOING.
 - **Rationale:** [pacer-rationale.md](pacer-rationale.md)
 - **Evidence Pack:** [pacer-evidence.md](pacer-evidence.md)
 - **FAQ & Patterns:** [pacer-faq.md](pacer-faq.md)
-- **JSON Schema:** [pacer.schema.json](pacer.schema.json)
+- **JSON Schema:** [pacer.schema.json](docs/pacer/machine/pacer.schema.json)
 
 ---
 

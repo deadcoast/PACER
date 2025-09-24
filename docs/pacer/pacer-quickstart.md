@@ -6,7 +6,7 @@ PACER = one CSV, one row per task ("PAC"). This page shows the **minimum** you n
 ---
 
 ## 1) Create the Register
-- Copy `pacer-template.csv` into your repo and name it (e.g., `pacer.csv`).
+- Copy `docs/pacer/pacer-template.csv` into your repo and name it (e.g., `pacer.csv`).
 - Keep it in version control. One file = the **single source of truth**.
 
 **Headers (required):**
@@ -80,7 +80,7 @@ More patterns: **[pacer-field-manual.md](pacer-field-manual.md)** and **[pacer-f
 ---
 
 ## 9) Validate (Optional but Recommended)
-- Convert CSV to JSON and validate against **[pacer.schema.json](pacer.schema.json)**.  
+- Convert CSV to JSON and validate against **[pacer.schema.json](docs/pacer/machine/pacer.schema.json)**.  
 - Minimum checks: header present, ID unique/immutable, enums valid, dependency gate enforced — **Spec §9**.
 
 ---

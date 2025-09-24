@@ -30,7 +30,7 @@ Implementations **MUST** follow this specification to claim PACER compatibility.
 
 ## 3. File Format
 
-PACER v1.0 is defined primarily for **CSV** (Comma‑Separated Values). A **JSON** representation (array of records) is also permitted for validation and APIs.
+PACER v1.1 is defined primarily for **CSV** (Comma‑Separated Values). A **JSON** representation (array of records) is also permitted for validation and APIs.
 
 ### 3.1 CSV Requirements (Normative)
 
@@ -55,7 +55,7 @@ The file **MUST NOT**:
 
 ### 3.2 JSON Requirements (Informative)
 
-For machine APIs, the CSV MAY be mirrored as an array of JSON objects using the same column names as keys. Validation MAY be performed via the official JSON Schema (`pacer.schema.json`).
+For machine APIs, the CSV MAY be mirrored as an array of JSON objects using the same column names as keys. Validation MAY be performed via the official JSON Schema (`docs/pacer/machine/pacer.schema.json`).
 
 ---
 
@@ -215,7 +215,7 @@ This section defines normative behavior for common mutations.
 
 ## 13. Profiles (Informative)
 
-Implementations MAY define **profiles** to tailor enums or columns for a domain (e.g., “Solo Dev”, “Open Source”). Profiles MUST cite PACER v1.0 and list deviations explicitly.
+Implementations MAY define **profiles** to tailor enums or columns for a domain (e.g., "Solo Dev", "Open Source"). Profiles MUST cite PACER v1.1 and list deviations explicitly.
 
 ---
 

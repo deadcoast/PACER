@@ -68,7 +68,7 @@ You don’t need a full queueing model—just enforce the status rules and watch
 PACER minimizes ambiguity for agents:
 - **Deterministic transitions** (Spec §6) → clear state machine.
 - **Dependency gate** (Spec §7.2) → refusal conditions are obvious and explainable.
-- **Schema** (pacer.schema.json) → structural validation before writes.
+- **Schema** (docs/pacer/machine/pacer.schema.json) → structural validation before writes.
 - **Notes convention** → human-readable, append-only breadcrumbs for accountability.
 
 Agents can do high-fidelity operations (“Start”, “Done”, “Block on …”) without guessing hidden rules.
@@ -137,7 +137,7 @@ PACER shines in **solo/lean** contexts and as a **ground truth register** alongs
 - **Quickstart:** [pacer-quickstart.md](docs/pacer/pacer-quickstart.md)
 - **Evidence Pack:** [pacer-evidence.md](docs/pacer/pacer-evidence.md)
 - **FAQ & Patterns:** [pacer-faq.md](docs/pacer/pacer-faq.md)
-- **Schema:** [pacer.schema.json](docs/pacer/pacer.schema.json)
+- **Schema:** [pacer.schema.json](docs/pacer/machine/pacer.schema.json)
 
 ---
 

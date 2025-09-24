@@ -96,7 +96,9 @@ PAC-010,Deploy app,Release,TODO,PAC-001,PAC-005,,,,"Live on production; health c
 | [pacer-commands.jsonl](docs/pacer/machine/pacer-commands.jsonl) | Command patterns | JSONL |
 | [pacer.agent.api.json](docs/pacer/machine/pacer.agent.api.json) | API contract | JSON |
 | [pacer.agent.grammar.ebnf](docs/pacer/machine/pacer.agent.grammar.ebnf) | Command grammar | EBNF |
+| [pacer.agent.grammar.go](docs/pacer/machine/pacer.agent.grammar.go) | Go struct definitions | Go |
 | [pacer.agent.contract.json](docs/pacer/machine/pacer.agent.contract.json) | Behavior rules | JSON |
+| [howto-machine-readable.md](docs/pacer/machine/howto-machine-readable.md) | AI integration guide | Getting started |
 
 ### Natural Language Commands
 ```bash
@@ -135,7 +137,9 @@ PAC-010,Deploy app,Release,TODO,PAC-001,PAC-005,,,,"Live on production; health c
 | [**Machine Spec (YAML)**](docs/pacer/pacer-machine.yaml) | Complete AI specification | AI agents |
 | [**Command Patterns**](docs/pacer/machine/pacer-commands.jsonl) | Natural language → actions | Command parsing |
 | [**API Contract**](docs/pacer/machine/pacer.agent.api.json) | Method signatures | API implementation |
-| [**Grammar**](docs/pacer/machine/pacer.agent.grammar.ebnf) | Command grammar | Parser generation |
+| [**Grammar (EBNF)**](docs/pacer/machine/pacer.agent.grammar.ebnf) | Command grammar | Parser generation |
+| [**Grammar (Go)**](docs/pacer/machine/pacer.agent.grammar.go) | Go struct definitions | Go implementation |
+| [**How-to Guide**](docs/pacer/machine/howto-machine-readable.md) | AI integration guide | Getting started |
 
 ---
 
