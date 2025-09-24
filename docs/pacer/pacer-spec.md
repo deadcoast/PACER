@@ -34,12 +34,24 @@ PACER v1.0 is defined primarily for **CSV** (Comma‑Separated Values). A **JSON
 
 ### 3.1 CSV Requirements (Normative)
 
-- The register **MUST** be encoded as UTF‑8 without BOM.
-- The file **MUST** contain a header row naming columns exactly as specified.
-- The file **MUST** contain **one row per PAC**.
-- Columns **MUST** appear at least in the **Required Column Set** (Section 4.1). Additional columns are allowed (Section 8).
+The register **MUST** be encoded as UTF‑8 without BOM.
 
-**Delimiter & quoting.** Comma `,` as delimiter. Fields containing commas, quotes, or newlines **MUST** be quoted per RFC 4180. Double quotes inside a quoted field **MUST** be escaped by doubling them.
+Columns **MUST** appear at least in the **Required Column Set** (Section 4.1). Additional columns are allowed (Section 8).
+  
+The file **MUST**:
+  - Contain a header row naming columns exactly as specified.
+  - Contain **one row per PAC**.
+  - Use LF line endings (Unix-style).
+
+The file **MUST NOT**:
+  - Contain empty rows.
+  - Contain duplicate ID values.
+
+**Delimiter & quoting.** Comma `,` as delimiter. Fields containing commas, quotes, or newlines **MUST** be quoted per RFC 4180. Double quotes inside a quoted field **MUST** be escaped by doubling them. The file **MUST NOT** contain trailing commas.
+
+**Field length limits.** Fields **MUST NOT** exceed 1000 characters to prevent memory issues in AI systems.
+
+**Content integrity.** The register **MAY** include a `_content_hash` field containing the SHA-256 hash of the normalized CSV content (excluding the hash field itself) for integrity verification.
 
 ### 3.2 JSON Requirements (Informative)
 

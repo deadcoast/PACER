@@ -65,6 +65,51 @@
       "hash_algorithm": "sha256",
       "rule": "content hash must match expected value",
       "error_code": "E_INTEGRITY_FAILURE"
+    },
+    "line_endings": {
+      "enabled": true,
+      "rule": "must use LF line endings (Unix-style)",
+      "error_code": "E_INVALID_LINE_ENDINGS"
+    },
+    "empty_rows": {
+      "enabled": true,
+      "rule": "no empty rows allowed",
+      "error_code": "E_EMPTY_ROWS"
+    },
+    "bom_detection": {
+      "enabled": true,
+      "rule": "UTF-8 BOM not allowed",
+      "error_code": "E_BOM_PRESENT"
+    },
+    "duplicate_ids": {
+      "enabled": true,
+      "rule": "no duplicate ID values allowed",
+      "error_code": "E_DUPLICATE_ID"
+    },
+    "quote_escaping": {
+      "enabled": true,
+      "rule": "quotes must be properly escaped per RFC 4180",
+      "error_code": "E_MALFORMED_QUOTES"
+    },
+    "field_length_limits": {
+      "enabled": true,
+      "rule": "fields must not exceed 1000 characters",
+      "error_code": "E_FIELD_TOO_LONG"
+    },
+    "timestamp_format": {
+      "enabled": true,
+      "rule": "timestamps must be valid ISO 8601 format",
+      "error_code": "E_INVALID_TIMESTAMP"
+    },
+    "trailing_commas": {
+      "enabled": true,
+      "rule": "no trailing commas allowed",
+      "error_code": "E_TRAILING_COMMA"
+    },
+    "required_fields": {
+      "enabled": true,
+      "rule": "all required fields must be present and non-empty",
+      "error_code": "E_MISSING_REQUIRED_FIELD"
     }
   },
   "refusals": {
@@ -76,7 +121,16 @@
       "schema": "REFUSAL: Register validation failed ({why})",
       "missing_reference": "REFUSAL: BlockedBy references non-existent PAC {id}",
       "circular_dependency": "REFUSAL: Circular dependency detected in {cycle}",
-      "integrity_failure": "REFUSAL: Content integrity check failed"
+      "integrity_failure": "REFUSAL: Content integrity check failed",
+      "invalid_line_endings": "REFUSAL: File must use LF line endings (Unix-style)",
+      "empty_rows": "REFUSAL: Empty rows not allowed in register",
+      "bom_present": "REFUSAL: UTF-8 BOM not allowed in register",
+      "duplicate_id": "REFUSAL: Duplicate ID {id} found in register",
+      "malformed_quotes": "REFUSAL: Quotes not properly escaped per RFC 4180",
+      "field_too_long": "REFUSAL: Field exceeds 1000 character limit",
+      "invalid_timestamp": "REFUSAL: Invalid ISO 8601 timestamp format",
+      "trailing_comma": "REFUSAL: Trailing commas not allowed",
+      "missing_required_field": "REFUSAL: Required field {field} missing or empty"
     },
     "codes": {
       "blocked": "E_BLOCKED",
@@ -86,7 +140,16 @@
       "schema": "E_SCHEMA",
       "missing_reference": "E_MISSING_REFERENCE",
       "circular_dependency": "E_CIRCULAR_DEPENDENCY",
-      "integrity_failure": "E_INTEGRITY_FAILURE"
+      "integrity_failure": "E_INTEGRITY_FAILURE",
+      "invalid_line_endings": "E_INVALID_LINE_ENDINGS",
+      "empty_rows": "E_EMPTY_ROWS",
+      "bom_present": "E_BOM_PRESENT",
+      "duplicate_id": "E_DUPLICATE_ID",
+      "malformed_quotes": "E_MALFORMED_QUOTES",
+      "field_too_long": "E_FIELD_TOO_LONG",
+      "invalid_timestamp": "E_INVALID_TIMESTAMP",
+      "trailing_comma": "E_TRAILING_COMMA",
+      "missing_required_field": "E_MISSING_REQUIRED_FIELD"
     }
   },
   "notes": {

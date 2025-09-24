@@ -195,6 +195,24 @@ validation:
     severity: error
   - id: content_integrity_hash
     severity: error
+  - id: line_endings_lf
+    severity: error
+  - id: no_empty_rows
+    severity: error
+  - id: no_bom
+    severity: error
+  - id: no_duplicate_ids
+    severity: error
+  - id: quote_escaping_rfc4180
+    severity: error
+  - id: field_length_limits
+    severity: error
+  - id: timestamp_iso8601
+    severity: error
+  - id: no_trailing_commas
+    severity: error
+  - id: required_fields_present
+    severity: error
 agent_guidelines:
   atomic_writes: true
   serialize_writes_or_lock: true
