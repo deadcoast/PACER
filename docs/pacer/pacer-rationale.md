@@ -1,20 +1,21 @@
 # PACER Rationale (Design Notes)
-**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md)
+**Status:** Stable • **Applies to:** PACER v1.1 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md)
 
 This document explains **why** PACER is shaped the way it is and **when** to use it. It complements, but does not replace, the **authoritative spec**.
 
-> If anything here appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.0](docs/pacer/pacer-spec.md)**.
+> If anything here appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.1](docs/pacer/pacer-spec.md)**.
 
 ---
 
 ## 1. Design Goals
 PACER is a small tool with sharp edges. We optimized for:
-1. **Single source of truth.** One file, one register, no desync.
-2. **Determinism.** Clear state transitions and a hard dependency gate (Spec §6–§7).
-3. **Embedded acceptance.** DoD lives in the row (Spec §4.1), eliminating “what does done mean?”
-4. **Tool-agnosticism.** CSV by default; JSON via schema. Import anywhere, automate everywhere.
-5. **Versionability.** A text file under source control gives reviewability, auditability, and rollback for free.
-6. **Agent friendliness.** Natural-language commands map to deterministic edits; schema validates intent.
+1. **AI/LLM consumption.** Primary design goal is machine readability and deterministic processing.
+2. **Single source of truth.** One file, one register, no desync.
+3. **Determinism.** Clear state transitions and a hard dependency gate (Spec §6–§7).
+4. **Embedded acceptance.** DoD lives in the row (Spec §4.1), eliminating "what does done mean?"
+5. **Tool-agnosticism.** CSV by default; JSON via schema. Import anywhere, automate everywhere.
+6. **Versionability.** A text file under source control gives reviewability, auditability, and rollback for free.
+7. **Agent friendliness.** Natural-language commands map to deterministic edits; schema validates intent.
 
 ---
 

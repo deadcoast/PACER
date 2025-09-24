@@ -6,3 +6,16 @@
 {"name": "unblock_remove", "pattern": "^unblock\\s+PAC-(\\d{3,4})\\s+remove\\s+(\\d{3,4})$", "action": {"type": "remove_from_csv_field", "field": "BlockedBy", "value_template": "PAC-{id}"}}
 {"name": "note", "pattern": "^note\\s+PAC-(\\d{3,4})\\s*:\\s*(.+)$", "action": {"type": "append_note", "note_group": 2}}
 {"name": "set_dod", "pattern": "^dod\\s+PAC-(\\d{3,4})\\s*:\\s*(.+)$", "action": {"type": "set", "field": "DoD", "value_group": 2}}
+{"name": "rollback", "pattern": "^rollback\\s+PAC-(\\d{3,4})\\s+to\\s+(doing|review)$", "action": {"type": "transition", "to": "DOING", "id_group": 1}}
+{"in": "start PAC-021", "expect": {"action": "transition", "to": "DOING", "id": "PAC-021"}}
+{"in": "PAC-021 done", "expect": {"action": "transition", "to": "DONE", "id": "PAC-021"}}
+{"in": "assign PAC-021 to @alex", "expect": {"action": "set", "field": "Assignee", "value": "@alex", "id": "PAC-021"}}
+{"in": "block PAC-055 on 060,065", "expect": {"action": "set", "field": "BlockedBy", "value": "PAC-060,PAC-065", "id": "PAC-055"}}
+{"in": "unblock PAC-055 remove 065", "expect": {"action": "remove_csv", "field": "BlockedBy", "value": "PAC-065", "id": "PAC-055"}}
+{"in": "note PAC-021: tests green", "expect": {"action": "append_note", "id": "PAC-021", "message": "tests green"}}
+{"in": "dod PAC-021: server uniqueness; already-voted error; confirmation UI", "expect": {"action": "set", "field": "DoD", "id": "PAC-021"}}
+{"in": "rollback PAC-021 to doing", "expect": {"action": "transition", "to": "DOING", "id": "PAC-021"}}
+{"in": "to review PAC-021", "expect": {"action": "transition", "to": "REVIEW", "id": "PAC-021"}}
+{"in": "done PAC-XX1", "expect": {"error": "E_BAD_ID"}}
+{"in": "assign PAC-1 to alex", "expect": {"error": "E_BAD_ID"}}
+{"in": "block PAC-055 on 06a", "expect": {"error": "E_BAD_ID"}}

@@ -1,9 +1,9 @@
 # PACER Field Manual (Ops Guide)
-**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md)
+**Status:** Stable • **Applies to:** PACER v1.1 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md)
 
-This manual describes **how to operate PACER day-to-day** for both humans and AI agents. It implements the rules defined in the **authoritative spec** and adds practical workflows.
+This manual describes **how to operate PACER day-to-day** for both humans and AI agents. It implements the rules defined in the **authoritative spec** and adds practical workflows optimized for AI/LLM consumption.
 
-> If a rule here appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.0](docs/pacer/pacer-spec.md)**.
+> If a rule here appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.1](docs/pacer/pacer-spec.md)**.
 
 ---
 

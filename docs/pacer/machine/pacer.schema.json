@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.org/pacer.schema.json",
-  "title": "PACER v1.0 Register (CSV-as-JSON)",
-  "description": "Authoritative JSON Schema for PACER v1.0. Convert the CSV register to an array of JSON objects using header names as keys, then validate with this schema.",
+  "title": "PACER v1.1 Register (CSV-as-JSON)",
+  "description": "Authoritative JSON Schema for PACER v1.1. Convert the CSV register to an array of JSON objects using header names as keys, then validate with this schema.",
   "type": "array",
   "minItems": 1,
   "items": {

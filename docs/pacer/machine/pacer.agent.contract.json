@@ -1,0 +1,97 @@
+{
+  "version": "1.1",
+  "generated_at": "2025-01-27T00:00:00Z",
+  "register": {
+    "path": "pacer.csv",
+    "csv": {
+      "encoding": "utf-8",
+      "delimiter": ",",
+      "quotechar": "\"",
+      "rfc4180": true,
+      "normalize_line_endings": "LF",
+      "header_required": true,
+      "preserve_unknown_columns": true
+    },
+    "id": {
+      "prefix": "PAC",
+      "digits_min": 3,
+      "digits_max": 4,
+      "pattern": "^PAC-\\d{3,4}$",
+      "immutable": true
+    }
+  },
+  "lifecycle": {
+    "status_fsm": {
+      "TODO": [
+        "DOING"
+      ],
+      "DOING": [
+        "REVIEW",
+        "TODO"
+      ],
+      "REVIEW": [
+        "DONE",
+        "DOING"
+      ],
+      "DONE": []
+    },
+    "timestamps": {
+      "on_enter_DOING": "set StartedAt if empty (UTC ISO8601)",
+      "on_enter_DONE": "set DoneAt (UTC ISO8601)"
+    },
+    "dependency_gate": "DONE iff all BlockedBy DONE"
+  },
+  "concurrency": {
+    "write_strategy": "atomic_replace",
+    "temp_suffix": ".tmp",
+    "lockfile": "pacer.csv.lock",
+    "policy": "acquire_lock_or_retry",
+    "conflict_detection": "sha256_of_normalized_csv",
+    "on_conflict": "reload_merge_preserving_unknown_columns"
+  },
+  "refusals": {
+    "messages": {
+      "blocked": "REFUSAL: Blocked by {ids}",
+      "fsm": "REFUSAL: Illegal transition {from}->{to}",
+      "not_found": "REFUSAL: Unknown ID {id}",
+      "bad_id": "REFUSAL: Bad ID format {text}",
+      "schema": "REFUSAL: Register validation failed ({why})"
+    },
+    "codes": {
+      "blocked": "E_BLOCKED",
+      "fsm": "E_FSM",
+      "not_found": "E_NOT_FOUND",
+      "bad_id": "E_BAD_ID",
+      "schema": "E_SCHEMA"
+    }
+  },
+  "notes": {
+    "format": "[{iso_utc}] {actor}: {message}",
+    "actor_default": "agent@ide",
+    "prepend_newest": true,
+    "max_entry_chars": 280
+  },
+  "wip": {
+    "limit_hint": 3
+  },
+  "normalization": {
+    "trim_fields": [
+      "Title",
+      "DoD",
+      "Assignee",
+      "BlockedBy",
+      "Notes"
+    ],
+    "collapse_spaces": [
+      "Title"
+    ],
+    "uppercase_ids": true,
+    "strip_blockedby_spaces": true
+  },
+  "parsing": {
+    "grammar_file": "pacer.agent.grammar.ebnf",
+    "id_prefix_var": "{ID_PREFIX}",
+    "case_insensitive_keywords": true,
+    "allow_slash_wrapped_ids": true
+  }
+}

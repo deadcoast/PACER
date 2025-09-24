@@ -1,6 +1,8 @@
 # **Machine-readable PACER artifacts** 
 
-Point your IDE’s AI directly at:
+> **AI/LLM Priority**: These artifacts are specifically designed for AI consumption and automation. Human readability is secondary.
+
+Point your IDE's AI directly at:
 
 * **Canonical JSON (full spec for agents):**
   [docs/pacer/pacer-machine.json](docs/pacer//pacer-machine.json)

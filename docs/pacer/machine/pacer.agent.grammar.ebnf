@@ -1,0 +1,47 @@
+# pacer.agent.grammar.ebnf (v1)
+# Keywords are case-insensitive. Whitespace = space/tab.
+# {ID_PREFIX} is substituted from contract.json (default: "PAC").
+
+command      ::= start | review | done | assign | block | unblock | note | setdod | rollback | setfield
+start        ::= K_START WS id
+review       ::= (K_REVIEW | K_TO WS K_REVIEW) WS id
+done         ::= ((K_DONE | K_COMPLETE) WS id) | (id WS (K_DONE | K_COMPLETE))
+assign       ::= K_ASSIGN WS id WS K_TO WS handle
+block        ::= K_BLOCK WS id WS K_ON WS id_list
+unblock      ::= K_UNBLOCK WS id WS K_REMOVE WS id_num
+rollback     ::= K_ROLLBACK WS id WS (K_TO WS (K_DOING | K_REVIEW))
+note         ::= K_NOTE WS id ":" WS text
+setdod       ::= K_DOD WS id ":" WS text
+setfield     ::= K_SETFIELD WS id WS fieldname WS value
+
+id           ::= "/"? {ID_PREFIX} "-" id_num "/"?
+id_num       ::= DIGIT DIGIT DIGIT (DIGIT)?
+id_list      ::= id_num ("," id_num)*
+
+handle       ::= "@"? (ALNUM | "_" | "-")+
+fieldname    ::= (ALPHA | "_") (ALNUM | "_" )*
+value        ::= text
+
+text         ::= .+
+
+# Terminals
+K_START      ::= (?i:start|begin)
+K_REVIEW     ::= (?i:review)
+K_DONE       ::= (?i:done)
+K_COMPLETE   ::= (?i:complete)
+K_ASSIGN     ::= (?i:assign)
+K_TO         ::= (?i:to)
+K_BLOCK      ::= (?i:block)
+K_ON         ::= (?i:on)
+K_UNBLOCK    ::= (?i:unblock)
+K_REMOVE     ::= (?i:remove)
+K_NOTE       ::= (?i:note)
+K_DOD        ::= (?i:dod)
+K_ROLLBACK   ::= (?i:rollback)
+K_SETFIELD   ::= (?i:setfield)
+K_DOING      ::= (?i:doing)
+
+WS           ::= [ \t]+
+ALPHA        ::= [A-Za-z]
+DIGIT        ::= [0-9]
+ALNUM        ::= [A-Za-z0-9]

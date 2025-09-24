@@ -1,8 +1,10 @@
-# PACER Specification v1.0 (Authoritative)
+# PACER Specification v1.1 (Authoritative)
 **PACER — Project Actions, Constraints & Evidence Register**
 
-This document defines the **authoritative, normative** specification for PACER v1.0.
+This document defines the **authoritative, normative** specification for PACER v1.1.
 Implementations **MUST** follow this specification to claim PACER compatibility.
+
+> **AI/LLM Priority**: This format is optimized for AI consumption and automation. Human readability is a bonus, not a primary feature.
 
 > Normative keywords (MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL) are to be interpreted as described in RFC 2119.
 
@@ -10,7 +12,7 @@ Implementations **MUST** follow this specification to claim PACER compatibility.
 
 ## 1. Scope & Non‑Goals
 
-**Scope.** PACER is a minimal, tool‑agnostic format for tracking work as a **single CSV table**. Each row represents a task, called a **PAC**. The format is intentionally flat, deterministic, and easy to automate.
+**Scope.** PACER is a minimal, tool‑agnostic format for tracking work as a **single CSV table**. Each row represents a task, called a **PAC**. The format is intentionally flat, deterministic, and optimized for AI/LLM consumption and automation.
 
 **Non‑Goals.** PACER does **not** define UI, sprint/iteration rituals, estimation models, or vendor‑specific workflows. PACER is not a replacement for Git, issue trackers, or docs; it is a compact **register** that integrates with them.
 
@@ -131,7 +133,7 @@ Projects MAY allow explicit, logged overrides for emergencies. Overrides SHOULD 
 ## 9. Validation
 
 ### 9.1 JSON Schema (Normative)
-PACER provides an official JSON Schema: `docs/pacer/pacer.schema.json`. CSV registers MAY be converted to JSON and validated against the schema.
+PACER provides an official JSON Schema: `docs/pacer/machine/pacer.schema.json`. CSV registers MAY be converted to JSON and validated against the schema.
 
 ### 9.2 Register‑Level Checks (Normative)
 Implementations **MUST** perform at least:
@@ -223,7 +225,7 @@ PAC-021,Create/Edit/Delete Contest,Contest Mgmt,TODO,,,,"","Form with title/desc
 
 ## 15. Versioning & Compatibility
 
-- This document defines **PACER v1.0**. Minor errata MAY be published without changing the version if they do not alter normative behavior.
+- This document defines **PACER v1.1**. Minor errata MAY be published without changing the version if they do not alter normative behavior.
 - Backward‑compatible extensions (new optional columns, additional `Phase` values under a profile) are allowed.
 - Breaking changes require a new major version (e.g., PACER v2.0).
 
@@ -252,4 +254,4 @@ PAC-021,Create/Edit/Delete Contest,Contest Mgmt,TODO,,,,"","Form with title/desc
 
 ---
 
-*End of PACER Specification v1.0*
+*End of PACER Specification v1.1*

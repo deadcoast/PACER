@@ -1,9 +1,9 @@
 # PACER Evidence Pack (Proof Template)
-**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md) • **Ops:** [pacer-field-manual.md](docs/pacer/pacer-field-manual.md)
+**Status:** Stable • **Applies to:** PACER v1.1 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md) • **Ops:** [pacer-field-manual.md](docs/pacer/pacer-field-manual.md)
 
 This pack shows how to collect **small, credible, repeatable evidence** that PACER improves execution—without a large study. It provides templates, formulas, and a 3–7 day procedure you can run solo.
 
-> If any procedure appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.0](docs/pacer/pacer-spec.md)**.
+> If any procedure appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.1](docs/pacer/pacer-spec.md)**.
 
 ---
 

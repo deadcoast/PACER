@@ -1,7 +1,7 @@
 # PACER Patterns & FAQ
-**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md) • **Ops:** [pacer-field-manual.md](docs/pacer/pacer-field-manual.md)
+**Status:** Stable • **Applies to:** PACER v1.1 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md) • **Ops:** [pacer-field-manual.md](docs/pacer/pacer-field-manual.md)
 
-Practical patterns, do/don’t guidance, and answers to common questions. For normative rules, see the **[PACER Specification v1.0](docs/pacer/pacer-spec.md)**.
+Practical patterns, do/don't guidance, and answers to common questions. For normative rules, see the **[PACER Specification v1.1](docs/pacer/pacer-spec.md)**.
 
 ---
 

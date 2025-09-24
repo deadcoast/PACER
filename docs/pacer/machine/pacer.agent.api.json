@@ -1,0 +1,196 @@
+{
+  "version": "1.1",
+  "types": {
+    "PAC": {
+      "type": "object",
+      "required": [
+        "ID",
+        "Title",
+        "Phase",
+        "Status",
+        "DoD"
+      ],
+      "properties": {
+        "ID": {
+          "type": "string"
+        },
+        "Title": {
+          "type": "string"
+        },
+        "Phase": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "BlockedBy": {
+          "type": "string"
+        },
+        "Assignee": {
+          "type": "string"
+        },
+        "StartedAt": {
+          "type": "string"
+        },
+        "DoneAt": {
+          "type": "string"
+        },
+        "DoD": {
+          "type": "string"
+        },
+        "Notes": {
+          "type": "string"
+        }
+      }
+    },
+    "ValidationReport": {
+      "type": "object",
+      "required": [
+        "ok"
+      ],
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "row": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "field": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Result": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "pac": {
+          "$ref": "#/types/PAC"
+        },
+        "register_path": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "methods": {
+    "get_pac": {
+      "params": {
+        "ID": "string"
+      },
+      "returns": {
+        "$ref": "#/types/PAC"
+      },
+      "errors": [
+        "E_NOT_FOUND",
+        "E_BAD_ID"
+      ]
+    },
+    "list_pac": {
+      "params": {
+        "filter": "object"
+      },
+      "returns": {
+        "type": "array",
+        "items": {
+          "$ref": "#/types/PAC"
+        }
+      }
+    },
+    "transition": {
+      "params": {
+        "ID": "string",
+        "toStatus": {
+          "enum": [
+            "TODO",
+            "DOING",
+            "REVIEW",
+            "DONE"
+          ]
+        }
+      },
+      "returns": {
+        "$ref": "#/types/Result"
+      },
+      "errors": [
+        "E_NOT_FOUND",
+        "E_BAD_ID",
+        "E_FSM",
+        "E_BLOCKED",
+        "E_SCHEMA"
+      ]
+    },
+    "set_field": {
+      "params": {
+        "ID": "string",
+        "field": "string",
+        "value": "string"
+      },
+      "returns": {
+        "$ref": "#/types/Result"
+      },
+      "errors": [
+        "E_NOT_FOUND",
+        "E_BAD_ID",
+        "E_SCHEMA"
+      ]
+    },
+    "append_note": {
+      "params": {
+        "ID": "string",
+        "message": "string",
+        "actor": {
+          "type": "string",
+          "default": "agent@ide"
+        }
+      },
+      "returns": {
+        "$ref": "#/types/Result"
+      },
+      "errors": [
+        "E_NOT_FOUND",
+        "E_BAD_ID"
+      ]
+    },
+    "validate_register": {
+      "params": {},
+      "returns": {
+        "$ref": "#/types/ValidationReport"
+      }
+    }
+  }
+}
