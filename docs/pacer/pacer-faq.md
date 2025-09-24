@@ -1,7 +1,7 @@
 # PACER Patterns & FAQ
-**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec-v1.md](pacer-spec-v1.md) • **Ops:** [pacer-field-manual.md](pacer-field-manual.md)
+**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](pacer-spec.md) • **Ops:** [pacer-field-manual.md](pacer-field-manual.md)
 
-Practical patterns, do/don’t guidance, and answers to common questions. For normative rules, see the **[PACER Specification v1.0](pacer-spec-v1.md)**.
+Practical patterns, do/don’t guidance, and answers to common questions. For normative rules, see the **[PACER Specification v1.0](pacer-spec.md)**.
 
 ---
 
@@ -153,7 +153,7 @@ Choose the smallest thing that works. Keep each register self‑consistent.
 ---
 
 ## 5) Cross‑Doc Map
-- **Spec:** [pacer-spec-v1.md](pacer-spec-v1.md) — Normative behavior (IDs, lifecycle, dependencies, validation).  
+- **Spec:** [pacer-spec.md](pacer-spec.md) — Normative behavior (IDs, lifecycle, dependencies, validation).  
 - **Field Manual:** [pacer-field-manual.md](pacer-field-manual.md) — Commands, daily ritual, playbooks, agent rules.  
 - **Quickstart:** [pacer-quickstart.md](pacer-quickstart.md) — 1‑page starter.  
 - **Rationale:** [pacer-rationale.md](pacer-rationale.md) — Design choices, DAG/DoD arguments.  

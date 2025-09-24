@@ -1,9 +1,9 @@
 # PACER Evidence Pack (Proof Template)
-**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec-v1.md](pacer-spec-v1.md) • **Ops:** [pacer-field-manual.md](pacer-field-manual.md)
+**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](pacer-spec.md) • **Ops:** [pacer-field-manual.md](pacer-field-manual.md)
 
 This pack shows how to collect **small, credible, repeatable evidence** that PACER improves execution—without a large study. It provides templates, formulas, and a 3–7 day procedure you can run solo.
 
-> If any procedure appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.0](pacer-spec-v1.md)**.
+> If any procedure appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.0](pacer-spec.md)**.
 
 ---
 
@@ -184,7 +184,7 @@ A: Make modest, falsifiable claims: “Reduced cycle time variability after enfo
 ---
 
 ## 11. References
-- **Spec:** [pacer-spec-v1.md](pacer-spec-v1.md) — §4 Data Model, §6 Status Lifecycle, §7 Dependencies, §9 Validation
+- **Spec:** [pacer-spec.md](pacer-spec.md) — §4 Data Model, §6 Status Lifecycle, §7 Dependencies, §9 Validation
 - **Field Manual:** [pacer-field-manual.md](pacer-field-manual.md) — reports & daily ops
 - **Quickstart:** [pacer-quickstart.md](pacer-quickstart.md)
 - **Schema:** [pacer.schema.json](pacer.schema.json)

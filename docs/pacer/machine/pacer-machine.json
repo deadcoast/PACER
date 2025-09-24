@@ -2,7 +2,7 @@
   "pacer_version": "1.0",
   "generated_at": "2025-09-24T03:54:18.525581Z",
   "spec_refs": {
-    "spec": "pacer-spec-v1.md",
+    "spec": "pacer-spec.md",
     "field_manual": "pacer-field-manual.md",
     "quickstart": "pacer-quickstart.md",
     "rationale": "pacer-rationale.md",

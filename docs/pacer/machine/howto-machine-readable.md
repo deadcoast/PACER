@@ -3,13 +3,13 @@
 Point your IDE’s AI directly at:
 
 * **Canonical JSON (full spec for agents):**
-  [docs/pacer/pacer-machine.v1.json](sandbox:/mnt/data/docs/pacer/pacer-machine.v1.json)
+  [docs/pacer/pacer-machine.json](sandbox:/mnt/data/docs/pacer/pacer-machine.json)
 
 * **YAML equivalent (some AIs prefer YAML):**
-  [docs/pacer/pacer-machine.v1.yaml](sandbox:/mnt/data/docs/pacer/pacer-machine.v1.yaml)
+  [docs/pacer/pacer-machine.yaml](sandbox:/mnt/data/docs/pacer/pacer-machine.yaml)
 
 * **Commands pack (JSONL) for parser testing / few-shot priming:**
-  [docs/pacer/pacer-commands.v1.jsonl](sandbox:/mnt/data/docs/pacer/pacer-commands.v1.jsonl)
+  [docs/pacer/pacer-commands.jsonl](sandbox:/mnt/data/docs/pacer/pacer-commands.jsonl)
 
 ### What’s inside the machine file (designed for deterministic AI behavior)
 
@@ -24,10 +24,10 @@ Point your IDE’s AI directly at:
 
 ### How to wire this in Cursor / IDE AIs
 
-1. **Pin the JSON:** Put `docs/pacer/pacer-machine.v1.json` in your repo.
+1. **Pin the JSON:** Put `docs/pacer/pacer-machine.json` in your repo.
 2. **System prompt (one-time):**
 
-   * “Load `docs/pacer/pacer-machine.v1.json` and obey its `register`, `operations`, `validation`, and `commands` rules. Refuse to mark DONE if blockers aren’t DONE. On every update, write a one-line Note.”
+   * “Load `docs/pacer/pacer-machine.json` and obey its `register`, `operations`, `validation`, and `commands` rules. Refuse to mark DONE if blockers aren’t DONE. On every update, write a one-line Note.”
 3. **At runtime:** Give natural commands that match the patterns:
 
    * `Start PAC-021`
@@ -37,4 +37,4 @@ Point your IDE’s AI directly at:
    * `Assign PAC-040 to @alex`
    * `Note PAC-040: image upload routed; awaiting copy`
 
-If you want a **project profile** (e.g., different ID prefix, extra phases/columns), I’ll emit a `pacer-machine.v1.profile.json` overlay that overrides only those fields so your agents keep strict compatibility with the base spec.
+If you want a **project profile** (e.g., different ID prefix, extra phases/columns), I’ll emit a `pacer-machine.profile.json` overlay that overrides only those fields so your agents keep strict compatibility with the base spec.

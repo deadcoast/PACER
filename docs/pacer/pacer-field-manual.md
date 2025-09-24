@@ -1,9 +1,9 @@
 # PACER Field Manual (Ops Guide)
-**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec-v1.md](pacer-spec-v1.md)
+**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](pacer-spec.md)
 
 This manual describes **how to operate PACER day-to-day** for both humans and AI agents. It implements the rules defined in the **authoritative spec** and adds practical workflows.
 
-> If a rule here appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.0](pacer-spec-v1.md)**.
+> If a rule here appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.0](pacer-spec.md)**.
 
 ---
 
@@ -219,7 +219,7 @@ Unless overridden, each owner keeps ≤ 3 active PACs in DOING.
 ---
 
 ## 10. References
-- **Authoritative Spec:** [pacer-spec-v1.md](pacer-spec-v1.md) — see **§4 Data Model**, **§6 Status**, **§7 Dependencies**, **§9 Validation**.
+- **Authoritative Spec:** [pacer-spec.md](pacer-spec.md) — see **§4 Data Model**, **§6 Status**, **§7 Dependencies**, **§9 Validation**.
 - **Quickstart:** [pacer-quickstart.md](pacer-quickstart.md)
 - **Rationale:** [pacer-rationale.md](pacer-rationale.md)
 - **Evidence Pack:** [pacer-evidence.md](pacer-evidence.md)
