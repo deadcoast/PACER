@@ -219,22 +219,19 @@ csv-to-json pacer.csv | jq . | validate-json docs/pacer/machine/pacer.schema.jso
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### For Humans
 1. **Read**: [Quickstart Guide](docs/pacer/pacer-quickstart.md)
 2. **Learn**: [Field Manual](docs/pacer/pacer-field-manual.md)  
 3. **Understand**: [Specification](docs/pacer/pacer-spec.md)
+4. **Validate**: [JSON Schema](docs/pacer/machine/pacer.schema.json)
+5. **Test**: [Command Patterns](docs/pacer/machine/pacer-commands.jsonl)
+6. **Integrate**: [Agent Contract](docs/pacer/machine/pacer.agent.contract.json)
 
 ### For AI Agents
 1. **Load**: [Machine Specification](docs/pacer/pacer-machine.json)
 2. **Parse**: [Command Grammar](docs/pacer/machine/pacer.agent.grammar.ebnf)
 3. **Implement**: [API Contract](docs/pacer/machine/pacer.agent.api.json)
-
-### For Developers
-1. **Validate**: [JSON Schema](docs/pacer/machine/pacer.schema.json)
-2. **Test**: [Command Patterns](docs/pacer/machine/pacer-commands.jsonl)
-3. **Integrate**: [Agent Contract](docs/pacer/machine/pacer.agent.contract.json)
 
 ---
 
@@ -247,7 +244,7 @@ csv-to-json pacer.csv | jq . | validate-json docs/pacer/machine/pacer.schema.jso
 - **Atomic Operations** - Safe concurrent access
 - **Extensible Schema** - Preserve unknown fields
 
-### For Human Teams  
+### For Devs
 - **Single Source of Truth** - No scattered information
 - **Clear Dependencies** - Visual blocking relationships
 - **Objective Completion** - DoD eliminates "done" ambiguity
