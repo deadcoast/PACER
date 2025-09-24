@@ -1,5 +1,5 @@
 # PACER Quickstart (1‑Page)
-**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](pacer-spec.md) • **Ops:** [pacer-field-manual.md](pacer-field-manual.md)
+**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md) • **Ops:** [pacer-field-manual.md](docs/pacer/pacer-field-manual.md)
 
 PACER = one CSV, one row per task (“PAC”). This page shows the **minimum** you need to start, work, and finish—fast.
 

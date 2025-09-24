@@ -1,9 +1,9 @@
 # PACER Field Manual (Ops Guide)
-**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](pacer-spec.md)
+**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md)
 
 This manual describes **how to operate PACER day-to-day** for both humans and AI agents. It implements the rules defined in the **authoritative spec** and adds practical workflows.
 
-> If a rule here appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.0](pacer-spec.md)**.
+> If a rule here appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.0](docs/pacer/pacer-spec.md)**.
 
 ---
 
@@ -14,10 +14,10 @@ This manual describes **how to operate PACER day-to-day** for both humans and AI
 - **Evidence:** DoD lives in the row; it must be objective (see **Spec §4.1**).
 
 Shortcuts:
-- **Quickstart (1 page):** [pacer-quickstart.md](pacer-quickstart.md)
-- **Design notes:** [pacer-rationale.md](pacer-rationale.md)
-- **Evidence pack:** [pacer-evidence.md](pacer-evidence.md)
-- **FAQ & patterns:** [pacer-faq.md](pacer-faq.md)
+- **Quickstart (1 page):** [pacer-quickstart.md](docs/pacer/pacer-quickstart.md)
+- **Design notes:** [pacer-rationale.md](docs/pacer/pacer-rationale.md)
+- **Evidence pack:** [pacer-evidence.md](docs/pacer/pacer-evidence.md)
+- **FAQ & patterns:** [pacer-faq.md](docs/pacer/pacer-faq.md)
 
 ---
 

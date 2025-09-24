@@ -1,9 +1,9 @@
 # PACER Rationale (Design Notes)
-**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](pacer-spec.md)
+**Status:** Stable • **Applies to:** PACER v1.0 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md)
 
 This document explains **why** PACER is shaped the way it is and **when** to use it. It complements, but does not replace, the **authoritative spec**.
 
-> If anything here appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.0](pacer-spec.md)**.
+> If anything here appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.0](docs/pacer/pacer-spec.md)**.
 
 ---
 
@@ -131,12 +131,12 @@ PACER shines in **solo/lean** contexts and as a **ground truth register** alongs
 ---
 
 ## 13. References
-- **Spec:** [pacer-spec.md](pacer-spec.md) — §4 Data Model, §6 Status, §7 Dependencies, §9 Validation
-- **Field Manual:** [pacer-field-manual.md](pacer-field-manual.md)
-- **Quickstart:** [pacer-quickstart.md](pacer-quickstart.md)
-- **Evidence Pack:** [pacer-evidence.md](pacer-evidence.md)
-- **FAQ & Patterns:** [pacer-faq.md](pacer-faq.md)
-- **Schema:** [pacer.schema.json](pacer.schema.json)
+- **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md) — §4 Data Model, §6 Status, §7 Dependencies, §9 Validation
+- **Field Manual:** [pacer-field-manual.md](docs/pacer/pacer-field-manual.md)
+- **Quickstart:** [pacer-quickstart.md](docs/pacer/pacer-quickstart.md)
+- **Evidence Pack:** [pacer-evidence.md](docs/pacer/pacer-evidence.md)
+- **FAQ & Patterns:** [pacer-faq.md](docs/pacer/pacer-faq.md)
+- **Schema:** [pacer.schema.json](docs/pacer/pacer.schema.json)
 
 ---
 

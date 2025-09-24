@@ -5,33 +5,33 @@ This index links every PACER document and the most important sections inside eac
 ---
 
 ## Core Docs
-- **Authoritative Spec:** [pacer-spec.md](pacer-spec.md)  
+- **Authoritative Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md)  
   - §3 File Format • §4 Data Model • §5 Identifiers • §6 Status Lifecycle • §7 Dependencies • §9 Validation • §10 Operations
-- **Field Manual (Ops):** [pacer-field-manual.md](pacer-field-manual.md)  
+- **Field Manual (Ops):** [pacer-field-manual.md](docs/pacer/pacer-field-manual.md)  
   - §3 Command Lexicon • §4 Daily Ritual • §5 Reports • §7 Playbooks • §8 Agent Integration
-- **Quickstart (1‑page):** [pacer-quickstart.md](pacer-quickstart.md)  
+- **Quickstart (1‑page):** [pacer-quickstart.md](docs/pacer/pacer-quickstart.md)  
   - Create → Start → Review → Done • Dependency Gate • Validation pointers
 
 ## Design & Proof
-- **Rationale (Design Notes):** [pacer-rationale.md](pacer-rationale.md)  
+- **Rationale (Design Notes):** [pacer-rationale.md](docs/pacer/pacer-rationale.md)  
   - Flat CSV justification • DAG and DoD reasoning • Anti‑patterns • Comparisons
-- **Evidence Pack (Proof Template):** [pacer-evidence.md](pacer-evidence.md)  
+- **Evidence Pack (Proof Template):** [pacer-evidence.md]docs/pacer/(pacer-evidence.md)  
   - Operational Log • Metrics & formulas • 3–7 day procedure • Ready‑to‑fill tables
 
 ## Reference
-- **Patterns & FAQ:** [pacer-faq.md](pacer-faq.md)  
+- **Patterns & FAQ:** [pacer-faq.md](docs/pacer/pacer-faq.md)  
   - Epics • Spikes • Splitting • Overrides • Multi‑agent • Multi‑repo • Troubleshooting
-- **JSON Schema:** [pacer.schema.json](pacer.schema.json) — Machine validation (CSV→JSON)
-- **CSV Template:** [pacer-template.csv](pacer-template.csv) — Header‑only starter
+- **JSON Schema:** [pacer.schema.json](docs/pacer/pacer.schema.json) — Machine validation (CSV→JSON)
+- **CSV Template:** [pacer-template.csv](docs/pacer/pacer-template.csv) — Header‑only starter
 
 ---
 
 ## Start Here
-1. **Quickstart** for a 2‑minute setup: [pacer-quickstart.md](pacer-quickstart.md)  
-2. **Spec** for the exact rules: [pacer-spec.md](pacer-spec.md)  
-3. **Field Manual** for daily operation: [pacer-field-manual.md](pacer-field-manual.md)
+1. **Quickstart** for a 2‑minute setup: [pacer-quickstart.md](docs/pacer/pacer-quickstart.md)  
+2. **Spec** for the exact rules: [pacer-spec.md](docs/pacer/pacer-spec.md)  
+3. **Field Manual** for daily operation: [pacer-field-manual.md](docs/pacer/pacer-field-manual.md)
 
-**Validate (optional):** Convert your CSV to JSON and check with [pacer.schema.json](pacer.schema.json).
+**Validate (optional):** Convert your CSV to JSON and check with [pacer.schema.json](docs/pacer/pacer.schema.json).
 
 ---
 
@@ -49,7 +49,7 @@ This index links every PACER document and the most important sections inside eac
 ---
 
 ## Governance & Versioning
-- Current version: **PACER v1.0** (see [pacer-spec.md](pacer-spec.md) §15).  
+- Current version: **PACER v1.0** (see [pacer-spec.md](docs/pacer/pacer-spec.md) §15).  
 - Backward‑compatible extensions use profiles (Spec §13). Document deviations explicitly.
 
 ---
