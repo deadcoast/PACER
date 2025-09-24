@@ -1,155 +1,285 @@
-# PACER Documentation Index
-**PACER — Project Actions, Constraints & Evidence Register**  
-This index links every PACER document and the most important sections inside each one.
+<div align="center">
+
+# PACER
+## Project Actions, Constraints & Evidence Register
+
+**AI-First Project Tracking • Deterministic • Machine-Readable**
+
+[![Version](https://img.shields.io/badge/version-1.1-blue.svg)](docs/pacer/pacer-spec.md)
+[![Format](https://img.shields.io/badge/format-CSV-green.svg)](docs/pacer/pacer-template.csv)
+[![AI Optimized](https://img.shields.io/badge/AI-Optimized-orange.svg)](#machine-readable-artifacts)
+
+*One CSV file. One row per task. Built for AI consumption with human readability as a bonus.*
+
+</div>
 
 ---
 
-## Core Docs
-- **Authoritative Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md)  
-  - §3 File Format • §4 Data Model • §5 Identifiers • §6 Status Lifecycle • §7 Dependencies • §9 Validation • §10 Operations
-- **Field Manual (Ops):** [pacer-field-manual.md](docs/pacer/pacer-field-manual.md)  
-  - §3 Command Lexicon • §4 Daily Ritual • §5 Reports • §7 Playbooks • §8 Agent Integration
-- **Quickstart (1‑page):** [pacer-quickstart.md](docs/pacer/pacer-quickstart.md)  
-  - Create → Start → Review → Done • Dependency Gate • Validation pointers
+## What is PACER?
 
-## Design & Proof
-- **Rationale (Design Notes):** [pacer-rationale.md](docs/pacer/pacer-rationale.md)  
-  - Flat CSV justification • DAG and DoD reasoning • Anti‑patterns • Comparisons
-- **Evidence Pack (Proof Template):** [pacer-evidence.md]docs/pacer/(pacer-evidence.md)  
-  - Operational Log • Metrics & formulas • 3–7 day procedure • Ready‑to‑fill tables
+PACER is a **minimal, deterministic project tracking format** optimized for AI/LLM consumption. It uses a single CSV file where each row represents a task (called a **PAC**). The format enforces strict rules for dependencies, status transitions, and completion gates.
 
-## Reference
-- **Patterns & FAQ:** [pacer-faq.md](docs/pacer/pacer-faq.md)  
-  - Epics • Spikes • Splitting • Overrides • Multi‑agent • Multi‑repo • Troubleshooting
-- **JSON Schema:** [pacer.schema.json](docs/pacer/pacer.schema.json) — Machine validation (CSV→JSON)
-- **CSV Template:** [pacer-template.csv](docs/pacer/pacer-template.csv) — Header‑only starter
+### Key Features
+- **AI-First Design** - Optimized for machine consumption and automation
+- **Deterministic Rules** - Clear state transitions and dependency gates  
+- **Single Source of Truth** - One CSV file, no desync
+- **Tool Agnostic** - Works with any editor, Git, or automation
+- **Version Controlled** - Text-based, diffable, auditable
 
 ---
 
-## Start Here
-1. **Quickstart** for a 2‑minute setup: [pacer-quickstart.md](docs/pacer/pacer-quickstart.md)  
-2. **Spec** for the exact rules: [pacer-spec.md](docs/pacer/pacer-spec.md)  
-3. **Field Manual** for daily operation: [pacer-field-manual.md](docs/pacer/pacer-field-manual.md)
+## Quick Start
 
-**Validate (optional):** Convert your CSV to JSON and check with [pacer.schema.json](docs/pacer/pacer.schema.json).
+### 1. Create Your Register
+```bash
+# Copy the template
+cp docs/pacer/pacer-template.csv my-project.csv
+```
 
----
+### 2. Add Your First Task
+```csv
+ID,Title,Phase,Status,BlockedBy,Assignee,StartedAt,DoneAt,DoD,Notes
+PAC-001,Initialize project,Foundation,TODO,,@you,,,Create repo; CI runs green,
+```
 
-## Cross‑Doc Map (Fast Lookups)
-- **IDs / immutability:** Spec §5 • FAQ §4 Q1  
-- **Allowed transitions:** Spec §6.1 • Quickstart §3–6 • Field Manual §3.1  
-- **Timestamps:** Spec §6.2 • Field Manual §3.1  
-- **Dependency gate:** Spec §7.2 • Quickstart §4/6 • Field Manual §3.1  
-- **Acyclic guidance:** Spec §7.3 • Rationale §3  
-- **DoD requirements:** Spec §4.1 • Rationale §4 • FAQ §2  
-- **WIP guidance:** Field Manual §6.4 • Rationale §5 • Evidence §4.3/4.6  
-- **Validation:** Spec §9 • Schema • Quickstart §9  
-- **Concurrency / atomic writes:** Spec §11 • Field Manual §8
+### 3. Start Working
+```bash
+# Natural language commands (AI-friendly)
+"Start PAC-001"     # → Status=DOING, StartedAt=now
+"PAC-001 done"      # → Status=DONE, DoneAt=now (if no blockers)
+```
 
----
-
-## Governance & Versioning
-- Current version: **PACER v1.0** (see [pacer-spec.md](docs/pacer/pacer-spec.md) §15).  
-- Backward‑compatible extensions use profiles (Spec §13). Document deviations explicitly.
-
----
-
-**Maintainers:** Keep this index in sync when adding or updating docs.
-
-# PACER — Project Actions, Constraints & Evidence Register
-
-PACER is a tiny, tool‑agnostic tracker: **one CSV, one row per task**. It’s built to be rock‑simple for humans and deterministic for AIs.
-
-> This README links the spec and shows exactly how to use PACER day‑to‑day.
+### 4. Track Dependencies
+```csv
+PAC-002,Add authentication,Auth & DB,TODO,PAC-001,,,,"OAuth flow; user sessions; logout",
+```
 
 ---
 
-## Files
+## Core Concepts
 
-- **docs/pacer/pacer-spec.md** — authoritative contract (IDs, columns, rules)
-- **docs/pacer/pacer-field-manual.md** — daily ops (commands & etiquette)
-- **docs/pacer/pacer-quickstart.md** — 1‑page starter
-- **docs/pacer/pacer-rationale.md** — why it works
-- **docs/pacer/pacer-evidence.md** — how to capture small proof
-- **docs/pacer/pacer-faq.md** — patterns & answers
-- **docs/pacer/pacer.schema.json** — JSON Schema (optional validation)
-- **docs/pacer/pacer-template.csv** — header‑only starter CSV
+### Task Lifecycle
+```
+TODO → DOING → REVIEW → DONE
+  ↑       ↑        ↑
+  └───────┴────────┘
+    (rollback allowed)
+```
 
-If you already have a live tracker CSV, keep it as your **single source of truth** (e.g., `docs/pacer/pac_backlog_tracker.csv`).
+### Required Fields
+| Field | Type | Description |
+|-------|------|-------------|
+| `ID` | string | Unique identifier (e.g., `PAC-001`) |
+| `Title` | string | Human-readable summary |
+| `Phase` | enum | Logical grouping (Foundation, Auth & DB, etc.) |
+| `Status` | enum | Current state (TODO, DOING, REVIEW, DONE) |
+| `DoD` | string | Definition of Done - objective criteria |
 
----
+### Dependency Rule
+**A task can only be DONE if all its blockers are DONE.**
 
-## ID & Columns (at a glance)
-
-- **ID**: `PAC-###` (unique, immutable)  
-- **Status**: `TODO → DOING → REVIEW → DONE`  
-- **BlockedBy**: comma‑separated IDs that must be **DONE** first  
-- **DoD**: **D**efinition **o**f **D**one — objective acceptance criteria
-
-Full details: see **pacer-spec.md**.
-
----
-
-## Quickstart
-
-1. **Create a task (row)**  
-   Add: `ID, Title, Phase, Status=TODO, DoD, (optional) BlockedBy`  
-   _Template:_ `docs/pacer/pacer-template.csv`
-
-2. **Start work**  
-   Say or log: “Start PAC-021” → set `Status=DOING`, stamp `StartedAt`.
-
-3. **Finish work**  
-   “PAC-021 done” → set `Status=DONE`, stamp `DoneAt`.  
-   **Rule:** You may only set DONE if all `BlockedBy` IDs are DONE.
-
-4. **See what’s blocked**  
-   Filter rows where any `BlockedBy` task is not `DONE`.
-
-5. **Keep it clean**  
-   - One row = one task
-   - Don’t change IDs
-   - Keep DoD objective and testable
-   - Use Notes for brief status after each change
+```csv
+# PAC-010 cannot be DONE until PAC-001 and PAC-005 are DONE
+PAC-010,Deploy app,Release,TODO,PAC-001,PAC-005,,,,"Live on production; health checks pass",
+```
 
 ---
 
-## Daily Ops (humans + AI)
+## AI/LLM Integration
 
-- “Start PAC-021” → `DOING` + `StartedAt=now`
-- “Mark PAC-032 done” → `DONE` + `DoneAt=now`
-- “Block PAC-055 on 060,065” → `BlockedBy=PAC-060,PAC-065`
-- “Assign PAC-040 to @me; note ‘needs hero copy’” → set `Assignee`, append to `Notes`
+### Machine-Readable Artifacts
 
-> Tip: Keep ≤ 2–3 items in **DOING**. It shortens cycle time and keeps focus.
+| File | Purpose | Format |
+|------|---------|--------|
+| [pacer-machine.json](docs/pacer/pacer-machine.json) | Complete specification | JSON |
+| [pacer-machine.yaml](docs/pacer/pacer-machine.yaml) | Complete specification | YAML |
+| [pacer-commands.jsonl](docs/pacer/machine/pacer-commands.jsonl) | Command patterns | JSONL |
+| [pacer.agent.api.json](docs/pacer/machine/pacer.agent.api.json) | API contract | JSON |
+| [pacer.agent.grammar.ebnf](docs/pacer/machine/pacer.agent.grammar.ebnf) | Command grammar | EBNF |
+| [pacer.agent.contract.json](docs/pacer/machine/pacer.agent.contract.json) | Behavior rules | JSON |
 
----
+### Natural Language Commands
+```bash
+# Status transitions
+"Start PAC-021"                    # → DOING
+"Review PAC-021"                   # → REVIEW  
+"PAC-021 done"                     # → DONE (if no blockers)
 
-## Dependency Rule (enforced)
+# Dependencies
+"Block PAC-055 on 060,065"         # → BlockedBy=PAC-060,PAC-065
+"Unblock PAC-055 remove 065"       # → Remove PAC-065 from BlockedBy
 
-A task can be **DONE** **iff** every ID in **BlockedBy** is already **DONE**.  
-This creates a natural order (a DAG) and prevents out‑of‑sequence work.
-
----
-
-## Where to go next
-
-- Read **pacer-spec.md** if you want exact rules.
-- Skim **pacer-quickstart.md** to onboard contributors fast.
-- Use **pacer-field-manual.md** for daily queries and updates.
-- Collect light proof in **pacer-evidence.md** (logs & micro‑metrics).
-
----
-
-## FAQ (short)
-
-- **Can I skip REVIEW?** For solo, REVIEW can be brief; it still separates “coded” from “merged/shipped.”  
-- **Can I rename `PAC-`?** Yes, change the prefix project‑wide and keep IDs unique.  
-- **Can I add columns?** Yes, if they don’t change the meaning of existing fields.
-
-For more, see **pacer-faq.md**.
+# Assignments & Notes
+"Assign PAC-040 to @alex"          # → Assignee=@alex
+"Note PAC-021: tests passing"      # → Append to Notes
+"DoD PAC-021: server returns 200"  # → Update DoD
+```
 
 ---
 
-### License / Attribution
-PACER format and docs © you. This repo includes a JSON Schema to help validate the CSV; use or ignore as you like.
+## Documentation
+
+### Human-Readable Docs
+| Document | Purpose | Best For |
+|----------|---------|----------|
+| [**Quickstart**](docs/pacer/pacer-quickstart.md) | 1-page setup guide | Getting started |
+| [**Specification**](docs/pacer/pacer-spec.md) | Authoritative rules | Implementation |
+| [**Field Manual**](docs/pacer/pacer-field-manual.md) | Daily operations | Day-to-day use |
+| [**FAQ**](docs/pacer/pacer-faq.md) | Patterns & troubleshooting | Common questions |
+| [**Rationale**](docs/pacer/pacer-rationale.md) | Design decisions | Understanding why |
+
+### Machine-Readable Docs
+| Document | Purpose | Best For |
+|----------|---------|----------|
+| [**Machine Spec (JSON)**](docs/pacer/pacer-machine.json) | Complete AI specification | AI agents |
+| [**Machine Spec (YAML)**](docs/pacer/pacer-machine.yaml) | Complete AI specification | AI agents |
+| [**Command Patterns**](docs/pacer/machine/pacer-commands.jsonl) | Natural language → actions | Command parsing |
+| [**API Contract**](docs/pacer/machine/pacer.agent.api.json) | Method signatures | API implementation |
+| [**Grammar**](docs/pacer/machine/pacer.agent.grammar.ebnf) | Command grammar | Parser generation |
+
+---
+
+## Usage Examples
+
+### Basic Workflow
+```csv
+# 1. Create task
+PAC-001,Setup database,Foundation,TODO,,@dev,,,PostgreSQL running; migrations applied,
+
+# 2. Start work  
+# Command: "Start PAC-001"
+PAC-001,Setup database,Foundation,DOING,,@dev,2025-01-27T10:00:00Z,,PostgreSQL running; migrations applied,
+
+# 3. Complete work
+# Command: "PAC-001 done" 
+PAC-001,Setup database,Foundation,DONE,,@dev,2025-01-27T10:00:00Z,2025-01-27T11:30:00Z,PostgreSQL running; migrations applied,
+```
+
+### Dependency Management
+```csv
+# PAC-002 depends on PAC-001
+PAC-001,Setup database,Foundation,DONE,,@dev,2025-01-27T10:00:00Z,2025-01-27T11:30:00Z,PostgreSQL running; migrations applied,
+PAC-002,Add user auth,Auth & DB,TODO,PAC-001,,,,"OAuth flow; user sessions; logout",
+```
+
+### AI Agent Integration
+```python
+# Example AI agent workflow
+def process_command(command: str, register: str) -> str:
+    if command.startswith("Start "):
+        pac_id = extract_pac_id(command)
+        return transition_to_doing(pac_id, register)
+    elif command.startswith("done "):
+        pac_id = extract_pac_id(command)
+        return complete_pac(pac_id, register)
+    # ... more command patterns
+```
+
+---
+
+## Advanced Features
+
+### Custom Phases
+```csv
+# Add your own phases
+PAC-100,Research phase,Research,TODO,,,,"Literature review; prototype built",
+```
+
+### Batch Operations
+```bash
+# Start multiple tasks
+"Start PAC-010, PAC-011, PAC-012"
+
+# Complete multiple tasks  
+"Done PAC-030..PAC-033"
+```
+
+### Emergency Overrides
+```csv
+# Document exceptions in Notes
+PAC-999,Hotfix security issue,Security,TODO,,,,"Override dependency order due to incident",
+```
+
+---
+
+## Validation & Quality
+
+### Schema Validation
+```bash
+# Convert CSV to JSON and validate
+csv-to-json pacer.csv | jq . | validate-json docs/pacer/machine/pacer.schema.json
+```
+
+### Common Checks
+- All required fields present
+- IDs are unique and immutable  
+- Status transitions are valid
+- Dependencies exist and are acyclic
+- DoD is objective and testable
+
+---
+
+## 🚀 Getting Started
+
+### For Humans
+1. **Read**: [Quickstart Guide](docs/pacer/pacer-quickstart.md)
+2. **Learn**: [Field Manual](docs/pacer/pacer-field-manual.md)  
+3. **Understand**: [Specification](docs/pacer/pacer-spec.md)
+
+### For AI Agents
+1. **Load**: [Machine Specification](docs/pacer/pacer-machine.json)
+2. **Parse**: [Command Grammar](docs/pacer/machine/pacer.agent.grammar.ebnf)
+3. **Implement**: [API Contract](docs/pacer/machine/pacer.agent.api.json)
+
+### For Developers
+1. **Validate**: [JSON Schema](docs/pacer/machine/pacer.schema.json)
+2. **Test**: [Command Patterns](docs/pacer/machine/pacer-commands.jsonl)
+3. **Integrate**: [Agent Contract](docs/pacer/machine/pacer.agent.contract.json)
+
+---
+
+## Benefits
+
+### For AI/LLM Systems
+- **Deterministic Processing** - Clear rules, no ambiguity
+- **Natural Language Commands** - Easy to parse and execute
+- **Structured Data** - Machine-readable format with validation
+- **Atomic Operations** - Safe concurrent access
+- **Extensible Schema** - Preserve unknown fields
+
+### For Human Teams  
+- **Single Source of Truth** - No scattered information
+- **Clear Dependencies** - Visual blocking relationships
+- **Objective Completion** - DoD eliminates "done" ambiguity
+- **Version Control Friendly** - Text-based, diffable
+- **Tool Agnostic** - Works with any editor or system
+
+---
+
+## Contributing
+
+### Documentation
+- Keep human docs in `docs/pacer/`
+- Keep machine specs in `docs/pacer/machine/`
+- Update this README when adding features
+
+### Format Changes
+- Follow [Specification](docs/pacer/pacer-spec.md) for normative rules
+- Use [Profiles](docs/pacer/pacer-spec.md#13-profiles) for customizations
+- Document deviations explicitly
+
+---
+
+## License
+
+PACER format and documentation are open source. Use freely in your projects.
+
+---
+
+<div align="center">
+
+**Built for AI • Simple for Humans • Deterministic by Design**
+
+[Get Started](docs/pacer/pacer-quickstart.md) • [Read the Spec](docs/pacer/pacer-spec.md) • [Machine Docs](docs/pacer/machine/)
+
+</div>
