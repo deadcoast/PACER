@@ -1,0 +1,376 @@
+{
+  "pacer_version": "1.0",
+  "generated_at": "2025-09-24T03:54:18.525581Z",
+  "spec_refs": {
+    "spec": "pacer-spec-v1.md",
+    "field_manual": "pacer-field-manual.md",
+    "quickstart": "pacer-quickstart.md",
+    "rationale": "pacer-rationale.md",
+    "evidence": "pacer-evidence.md",
+    "faq": "pacer-faq.md",
+    "schema": "pacer.schema.json",
+    "template_csv": "pacer-template.csv"
+  },
+  "register": {
+    "csv": {
+      "encoding": "utf-8",
+      "delimiter": ",",
+      "header_required": true,
+      "rfc4180_quoting": true
+    },
+    "id": {
+      "pattern": "^PAC-\\d{3,4}$",
+      "immutable": true,
+      "prefix_configurable": true
+    },
+    "enums": {
+      "status": [
+        "TODO",
+        "DOING",
+        "REVIEW",
+        "DONE"
+      ],
+      "phase": [
+        "Foundation",
+        "Auth & DB",
+        "Contest Mgmt",
+        "Voting",
+        "UX & Polish",
+        "Admin Tools",
+        "Integrations",
+        "Accounts & Profiles",
+        "Security/Perf/Ops",
+        "Embeds",
+        "Release"
+      ]
+    },
+    "columns": {
+      "ID": {
+        "required": true,
+        "type": "string",
+        "pattern": "^PAC-\\d{3,4}$",
+        "description": "Unique, immutable PAC identifier"
+      },
+      "Title": {
+        "required": true,
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "Phase": {
+        "required": true,
+        "type": "string",
+        "enum_ref": "phase"
+      },
+      "Status": {
+        "required": true,
+        "type": "string",
+        "enum_ref": "status"
+      },
+      "BlockedBy": {
+        "required": false,
+        "type": "string",
+        "pattern": "^$|^PAC-\\d{3,4}(,PAC-\\d{3,4})*$"
+      },
+      "Assignee": {
+        "required": false,
+        "type": "string"
+      },
+      "StartedAt": {
+        "required": false,
+        "type": "string",
+        "format": "date-time"
+      },
+      "DoneAt": {
+        "required": false,
+        "type": "string",
+        "format": "date-time"
+      },
+      "DoD": {
+        "required": true,
+        "type": "string",
+        "minLength": 1
+      },
+      "Notes": {
+        "required": false,
+        "type": "string"
+      }
+    },
+    "status_transitions": {
+      "TODO": [
+        "DOING"
+      ],
+      "DOING": [
+        "REVIEW",
+        "TODO"
+      ],
+      "REVIEW": [
+        "DONE",
+        "DOING"
+      ],
+      "DONE": []
+    },
+    "timestamp_rules": {
+      "on_enter_DOING": {
+        "set": "StartedAt",
+        "value": "now_utc_if_empty"
+      },
+      "on_enter_DONE": {
+        "set": "DoneAt",
+        "value": "now_utc"
+      }
+    },
+    "dependency_rule": {
+      "description": "A PAC may become DONE iff every ID in BlockedBy has Status=DONE.",
+      "enforce_on": [
+        "DONE"
+      ],
+      "fail_action": "refuse_and_note"
+    },
+    "invariants": [
+      "one_row_per_pac",
+      "ids_unique",
+      "ids_immutable",
+      "titles_and_DoD_required_on_creation",
+      "append_only_history_preferred"
+    ],
+    "extensibility": {
+      "allow_additional_columns": true,
+      "preserve_unknown_columns": true
+    }
+  },
+  "operations": [
+    {
+      "name": "create",
+      "inputs_required": [
+        "ID",
+        "Title",
+        "Phase",
+        "Status",
+        "DoD"
+      ],
+      "defaults": {
+        "Status": "TODO"
+      },
+      "preconditions": [
+        "ID_not_in_register"
+      ],
+      "postconditions": [
+        "row_appended",
+        "StartedAt_empty",
+        "DoneAt_empty"
+      ]
+    },
+    {
+      "name": "start_work",
+      "transition": {
+        "from": [
+          "TODO",
+          "REVIEW"
+        ],
+        "to": "DOING"
+      },
+      "set": [
+        {
+          "field": "StartedAt",
+          "value": "now_utc",
+          "only_if_empty": true
+        }
+      ]
+    },
+    {
+      "name": "to_review",
+      "transition": {
+        "from": [
+          "DOING"
+        ],
+        "to": "REVIEW"
+      }
+    },
+    {
+      "name": "complete",
+      "transition": {
+        "from": [
+          "REVIEW"
+        ],
+        "to": "DONE"
+      },
+      "gate": {
+        "type": "all_blockers_done"
+      },
+      "set": [
+        {
+          "field": "DoneAt",
+          "value": "now_utc"
+        }
+      ],
+      "on_gate_fail": {
+        "action": "refuse",
+        "note_prefix": "blocked by"
+      }
+    },
+    {
+      "name": "rollback",
+      "transition": {
+        "from": [
+          "DONE",
+          "REVIEW"
+        ],
+        "to": [
+          "REVIEW",
+          "DOING"
+        ]
+      },
+      "require_note": true
+    },
+    {
+      "name": "edit_nonkey",
+      "editable_fields": [
+        "Title",
+        "Phase",
+        "DoD",
+        "Notes",
+        "Assignee",
+        "BlockedBy"
+      ],
+      "immutable_fields": [
+        "ID"
+      ]
+    }
+  ],
+  "validation": {
+    "schema_file": "pacer.schema.json",
+    "register_checks": [
+      {
+        "id": "header_required_columns",
+        "severity": "error"
+      },
+      {
+        "id": "id_uniqueness",
+        "severity": "error"
+      },
+      {
+        "id": "id_pattern",
+        "severity": "error"
+      },
+      {
+        "id": "enum_values",
+        "severity": "error"
+      },
+      {
+        "id": "dependency_ids_exist",
+        "severity": "error"
+      },
+      {
+        "id": "completion_gate_enforced",
+        "severity": "error"
+      },
+      {
+        "id": "timestamp_on_transitions",
+        "severity": "warn"
+      },
+      {
+        "id": "long_titles_over_80",
+        "severity": "info"
+      }
+    ]
+  },
+  "agent_guidelines": {
+    "atomic_writes": true,
+    "serialize_writes_or_lock": true,
+    "preserve_unknown_columns": true,
+    "use_utc_iso_timestamps": true,
+    "wip_limit_hint": 3,
+    "notes_format": "[ISO8601] actor: message",
+    "refuse_done_if_blocked": true
+  },
+  "commands": [
+    {
+      "name": "start",
+      "pattern": "^(start|begin)\\s+PAC-(\\d{3,4})$",
+      "action": {
+        "type": "transition",
+        "to": "DOING",
+        "set_started_at": "if_empty"
+      }
+    },
+    {
+      "name": "review",
+      "pattern": "^(review|to\\s*review)\\s+PAC-(\\d{3,4})$",
+      "action": {
+        "type": "transition",
+        "to": "REVIEW"
+      }
+    },
+    {
+      "name": "done",
+      "pattern": "^(done|complete)\\s+PAC-(\\d{3,4})$|^PAC-(\\d{3,4})\\s+(done|complete)$",
+      "action": {
+        "type": "transition",
+        "to": "DONE",
+        "gate": "all_blockers_done",
+        "set_done_at": true
+      }
+    },
+    {
+      "name": "assign",
+      "pattern": "^assign\\s+PAC-(\\d{3,4})\\s+to\\s+(@?\\S+)$",
+      "action": {
+        "type": "set",
+        "field": "Assignee",
+        "value_group": 2
+      }
+    },
+    {
+      "name": "block_on",
+      "pattern": "^block\\s+PAC-(\\d{3,4})\\s+on\\s+((?:\\d{3,4})(?:,\\d{3,4})*)$",
+      "action": {
+        "type": "set",
+        "field": "BlockedBy",
+        "value_template": "PAC-{ids_csv}",
+        "ids_group": 2
+      }
+    },
+    {
+      "name": "unblock_remove",
+      "pattern": "^unblock\\s+PAC-(\\d{3,4})\\s+remove\\s+(\\d{3,4})$",
+      "action": {
+        "type": "remove_from_csv_field",
+        "field": "BlockedBy",
+        "value_template": "PAC-{id}"
+      }
+    },
+    {
+      "name": "note",
+      "pattern": "^note\\s+PAC-(\\d{3,4})\\s*:\\s*(.+)$",
+      "action": {
+        "type": "append_note",
+        "note_group": 2
+      }
+    },
+    {
+      "name": "set_dod",
+      "pattern": "^dod\\s+PAC-(\\d{3,4})\\s*:\\s*(.+)$",
+      "action": {
+        "type": "set",
+        "field": "DoD",
+        "value_group": 2
+      }
+    }
+  ],
+  "examples": {
+    "row_minimal": {
+      "ID": "PAC-001",
+      "Title": "Initialize repo",
+      "Phase": "Foundation",
+      "Status": "TODO",
+      "BlockedBy": "",
+      "Assignee": "@you",
+      "StartedAt": "",
+      "DoneAt": "",
+      "DoD": "Repo created; CI green",
+      "Notes": ""
+    },
+    "note_line_example": "[2025-09-23T20:10:00Z] agent@ide: validated DoD; moving to REVIEW"
+  }
+}

@@ -1,0 +1,8 @@
+{"name": "start", "pattern": "^(start|begin)\\s+PAC-(\\d{3,4})$", "action": {"type": "transition", "to": "DOING", "set_started_at": "if_empty"}}
+{"name": "review", "pattern": "^(review|to\\s*review)\\s+PAC-(\\d{3,4})$", "action": {"type": "transition", "to": "REVIEW"}}
+{"name": "done", "pattern": "^(done|complete)\\s+PAC-(\\d{3,4})$|^PAC-(\\d{3,4})\\s+(done|complete)$", "action": {"type": "transition", "to": "DONE", "gate": "all_blockers_done", "set_done_at": true}}
+{"name": "assign", "pattern": "^assign\\s+PAC-(\\d{3,4})\\s+to\\s+(@?\\S+)$", "action": {"type": "set", "field": "Assignee", "value_group": 2}}
+{"name": "block_on", "pattern": "^block\\s+PAC-(\\d{3,4})\\s+on\\s+((?:\\d{3,4})(?:,\\d{3,4})*)$", "action": {"type": "set", "field": "BlockedBy", "value_template": "PAC-{ids_csv}", "ids_group": 2}}
+{"name": "unblock_remove", "pattern": "^unblock\\s+PAC-(\\d{3,4})\\s+remove\\s+(\\d{3,4})$", "action": {"type": "remove_from_csv_field", "field": "BlockedBy", "value_template": "PAC-{id}"}}
+{"name": "note", "pattern": "^note\\s+PAC-(\\d{3,4})\\s*:\\s*(.+)$", "action": {"type": "append_note", "note_group": 2}}
+{"name": "set_dod", "pattern": "^dod\\s+PAC-(\\d{3,4})\\s*:\\s*(.+)$", "action": {"type": "set", "field": "DoD", "value_group": 2}}

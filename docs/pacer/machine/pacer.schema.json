@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/pacer.schema.json",
+  "title": "PACER v1.0 Register (CSV-as-JSON)",
+  "description": "Authoritative JSON Schema for PACER v1.0. Convert the CSV register to an array of JSON objects using header names as keys, then validate with this schema.",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "additionalProperties": true,
+    "required": [
+      "ID",
+      "Title",
+      "Phase",
+      "Status",
+      "DoD"
+    ],
+    "properties": {
+      "ID": {
+        "type": "string",
+        "description": "Unique, immutable PAC identifier. Default pattern PAC-### or PAC-#### (prefix configurable).",
+        "pattern": "^PAC-\\d{3,4}$"
+      },
+      "Title": {
+        "type": "string",
+        "description": "Short human-readable summary (\u2264100 chars).",
+        "maxLength": 100,
+        "minLength": 1
+      },
+      "Phase": {
+        "type": "string",
+        "description": "Logical grouping for planning.",
+        "enum": [
+          "Foundation",
+          "Auth & DB",
+          "Contest Mgmt",
+          "Voting",
+          "UX & Polish",
+          "Admin Tools",
+          "Integrations",
+          "Accounts & Profiles",
+          "Security/Perf/Ops",
+          "Embeds",
+          "Release"
+        ]
+      },
+      "Status": {
+        "type": "string",
+        "description": "Lifecycle state.",
+        "enum": [
+          "TODO",
+          "DOING",
+          "REVIEW",
+          "DONE"
+        ]
+      },
+      "BlockedBy": {
+        "type": "string",
+        "description": "Comma-separated list of PAC IDs that must be DONE first, or empty string.",
+        "pattern": "^$|^PAC-\\d{3,4}(,PAC-\\d{3,4})*$"
+      },
+      "Assignee": {
+        "type": "string",
+        "description": "Free text or @handle."
+      },
+      "StartedAt": {
+        "type": "string",
+        "description": "UTC ISO 8601 timestamp set on first entry to DOING.",
+        "format": "date-time"
+      },
+      "DoneAt": {
+        "type": "string",
+        "description": "UTC ISO 8601 timestamp set when entering DONE.",
+        "format": "date-time"
+      },
+      "DoD": {
+        "type": "string",
+        "description": "Objective Definition of Done; at least one criterion.",
+        "minLength": 1
+      },
+      "Notes": {
+        "type": "string",
+        "description": "Free text, one-line updates preferred."
+      }
+    }
+  },
+  "examples": [
+    [
+      {
+        "ID": "PAC-021",
+        "Title": "Create contest CRUD",
+        "Phase": "Contest Mgmt",
+        "Status": "TODO",
+        "BlockedBy": "",
+        "Assignee": "@you",
+        "StartedAt": "",
+        "DoneAt": "",
+        "DoD": "Form with title/desc/dates/rules; status cycle draft\u2192active\u2192voting\u2192completed",
+        "Notes": ""
+      }
+    ]
+  ]
+}
