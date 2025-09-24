@@ -191,6 +191,10 @@ validation:
     severity: warn
   - id: long_titles_over_80
     severity: info
+  - id: circular_dependencies
+    severity: error
+  - id: content_integrity_hash
+    severity: error
 agent_guidelines:
   atomic_writes: true
   serialize_writes_or_lock: true

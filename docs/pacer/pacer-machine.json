@@ -272,6 +272,14 @@
       {
         "id": "long_titles_over_80",
         "severity": "info"
+      },
+      {
+        "id": "circular_dependencies",
+        "severity": "error"
+      },
+      {
+        "id": "content_integrity_hash",
+        "severity": "error"
       }
     ]
   },

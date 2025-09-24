@@ -49,20 +49,44 @@
     "conflict_detection": "sha256_of_normalized_csv",
     "on_conflict": "reload_merge_preserving_unknown_columns"
   },
+  "validation": {
+    "blockedby_references": {
+      "enabled": true,
+      "rule": "all BlockedBy IDs must exist in register",
+      "error_code": "E_MISSING_REFERENCE"
+    },
+    "circular_dependencies": {
+      "enabled": true,
+      "rule": "dependency graph must be acyclic",
+      "error_code": "E_CIRCULAR_DEPENDENCY"
+    },
+    "content_integrity": {
+      "enabled": true,
+      "hash_algorithm": "sha256",
+      "rule": "content hash must match expected value",
+      "error_code": "E_INTEGRITY_FAILURE"
+    }
+  },
   "refusals": {
     "messages": {
       "blocked": "REFUSAL: Blocked by {ids}",
       "fsm": "REFUSAL: Illegal transition {from}->{to}",
       "not_found": "REFUSAL: Unknown ID {id}",
       "bad_id": "REFUSAL: Bad ID format {text}",
-      "schema": "REFUSAL: Register validation failed ({why})"
+      "schema": "REFUSAL: Register validation failed ({why})",
+      "missing_reference": "REFUSAL: BlockedBy references non-existent PAC {id}",
+      "circular_dependency": "REFUSAL: Circular dependency detected in {cycle}",
+      "integrity_failure": "REFUSAL: Content integrity check failed"
     },
     "codes": {
       "blocked": "E_BLOCKED",
       "fsm": "E_FSM",
       "not_found": "E_NOT_FOUND",
       "bad_id": "E_BAD_ID",
-      "schema": "E_SCHEMA"
+      "schema": "E_SCHEMA",
+      "missing_reference": "E_MISSING_REFERENCE",
+      "circular_dependency": "E_CIRCULAR_DEPENDENCY",
+      "integrity_failure": "E_INTEGRITY_FAILURE"
     }
   },
   "notes": {
