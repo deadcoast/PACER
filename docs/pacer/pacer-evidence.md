@@ -46,6 +46,13 @@ Record notable transitions or decisions (10–20 entries is enough).
 
 > Run these over a **3–7 day** window. A handful of completed PACs is enough to see patterns.
 
+### 4.1 AI-First Metrics (v1.1)
+- **Context Utilization**: % of PACs with `Context` field populated
+- **Instruction Clarity**: % of PACs with complete `Instructions` and `ExpectedOutput`
+- **Learning Accumulation**: Number of `LearningNotes` entries per PAC
+- **Dependency Intelligence**: % of PACs with `DependencyType` and `DependencyReason`
+- **Error Recovery**: % of PACs with `ErrorHandling` strategies
+
 ### 4.1 Throughput / Day
 - **Definition:** number of PACs with `Status = DONE` per day.
 - **Formula:** `throughput = count(DONE) / days_observed`

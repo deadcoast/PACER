@@ -22,6 +22,7 @@ Point your IDE's AI directly at:
 * **Validation suite:** required header/fields, ID uniqueness/pattern, enum checks, dependency existence, completion-gate enforcement.
 * **Agent guidelines:** atomic writes / serialize, UTC timestamps, preserve unknown columns, WIP hint, notes format.
 * **Command lexicon:** regex patterns → deterministic edits (start/review/done/assign/block/unblock/note/set DoD).
+* **AI-First fields:** Context, Instructions, Dependency Intelligence, Learning Notes for autonomous AI operation.
 * **Examples:** minimal row + notes line format.
 
 ### How to wire this in Cursor / IDE AIs
@@ -38,5 +39,9 @@ Point your IDE's AI directly at:
    * `Block PAC-055 on 060,065`
    * `Assign PAC-040 to @alex`
    * `Note PAC-040: image upload routed; awaiting copy`
+   * `Context PAC-021: Database setup failed due to port conflict`
+   * `Instructions PAC-021: Run database migrations in order`
+   * `Dependency PAC-021 hard`
+   * `Learn PAC-021: Use Docker instead of local install`
 
 If you want a **project profile** (e.g., different ID prefix, extra phases/columns), I’ll emit a `pacer-machine.profile.json` overlay that overrides only those fields so your agents keep strict compatibility with the base spec.

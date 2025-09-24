@@ -24,9 +24,14 @@ Create a new row with:
 - **Status**: `TODO`  
 - **DoD**: objective acceptance criteria (at least one)
 
+**AI-First Fields (Optional):**
+- **Context**: What the AI needs to know
+- **Instructions**: Step-by-step guidance
+- **DependencyType**: `hard`, `soft`, or `optional`
+
 Example:
 ```
-PAC-001,Initialize repo,Foundation,TODO,,@you,,,Create repo; CI runs green;
+PAC-001,Initialize repo,Foundation,TODO,,@you,,,Create repo; CI runs green;,,,Repository setup with CI pipeline,Follow setup guide in docs,hard
 ```
 
 ---

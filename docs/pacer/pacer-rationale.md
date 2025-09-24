@@ -16,6 +16,7 @@ PACER is a small tool with sharp edges. We optimized for:
 5. **Tool-agnosticism.** CSV by default; JSON via schema. Import anywhere, automate everywhere.
 6. **Versionability.** A text file under source control gives reviewability, auditability, and rollback for free.
 7. **Agent friendliness.** Natural-language commands map to deterministic edits; schema validates intent.
+8. **AI-First Intelligence.** Context, memory, dependency reasoning, and instruction clarity for autonomous AI operation (Spec §4.3).
 
 ---
 
@@ -128,6 +129,35 @@ PACER shines in **solo/lean** contexts and as a **ground truth register** alongs
 - Prefer **atomic writes** and preserve unknown columns (Spec §11, §8).  
 - Validate before write; refuse `DONE` with unmet blockers (Spec §9).  
 - Use UTC timestamps everywhere; avoid PII in `Notes` (Spec §12).
+
+---
+
+## 12. AI-First Design (v1.1)
+
+PACER v1.1 introduces AI-specific fields that enhance autonomous agent capabilities:
+
+### 12.1 Context & Memory
+- **Context**: Provides background information for AI understanding
+- **PreviousAttempts**: Prevents repetition of failed approaches
+- **RelatedWork**: Enables pattern recognition and learning
+- **LearningNotes**: Accumulates knowledge for future tasks
+
+### 12.2 Dependency Intelligence
+- **DependencyType**: Helps AI understand constraint severity (`hard`, `soft`, `optional`)
+- **DependencyReason**: Provides reasoning context for AI decision-making
+- **UnblockingStrategy**: Offers alternative approaches when blocked
+
+### 12.3 Instruction Clarity
+- **Instructions**: Clear, step-by-step guidance for AI execution
+- **ExpectedOutput**: Defines success criteria for AI validation
+- **ValidationCriteria**: Enables AI self-checking
+- **ErrorHandling**: Provides recovery strategies for AI resilience
+
+**AI Benefits:**
+- **Autonomous Operation**: AIs can work independently with clear instructions
+- **Learning & Memory**: Prevents repetition and builds knowledge over time
+- **Intelligent Reasoning**: Enhanced dependency understanding and problem-solving
+- **Deterministic Execution**: Clear validation and error handling
 
 ---
 

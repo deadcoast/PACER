@@ -7,6 +7,10 @@
 {"name": "note", "pattern": "^note\\s+PAC-(\\d{3,4})\\s*:\\s*(.+)$", "action": {"type": "append_note", "note_group": 2}}
 {"name": "set_dod", "pattern": "^dod\\s+PAC-(\\d{3,4})\\s*:\\s*(.+)$", "action": {"type": "set", "field": "DoD", "value_group": 2}}
 {"name": "rollback", "pattern": "^rollback\\s+PAC-(\\d{3,4})\\s+to\\s+(doing|review)$", "action": {"type": "transition", "to": "DOING", "id_group": 1}}
+{"name": "set_context", "pattern": "^context\\s+PAC-(\\d{3,4})\\s*:\\s*(.+)$", "action": {"type": "set", "field": "Context", "value_group": 2}}
+{"name": "set_instructions", "pattern": "^instructions\\s+PAC-(\\d{3,4})\\s*:\\s*(.+)$", "action": {"type": "set", "field": "Instructions", "value_group": 2}}
+{"name": "set_dependency_type", "pattern": "^dependency\\s+PAC-(\\d{3,4})\\s+(hard|soft|optional)$", "action": {"type": "set", "field": "DependencyType", "value_group": 2}}
+{"name": "learn", "pattern": "^learn\\s+PAC-(\\d{3,4})\\s*:\\s*(.+)$", "action": {"type": "append_note", "field": "LearningNotes", "note_group": 2}}
 {"in": "start PAC-021", "expect": {"action": "transition", "to": "DOING", "id": "PAC-021"}}
 {"in": "PAC-021 done", "expect": {"action": "transition", "to": "DONE", "id": "PAC-021"}}
 {"in": "assign PAC-021 to @alex", "expect": {"action": "set", "field": "Assignee", "value": "@alex", "id": "PAC-021"}}
@@ -19,3 +23,7 @@
 {"in": "done PAC-XX1", "expect": {"error": "E_BAD_ID"}}
 {"in": "assign PAC-1 to alex", "expect": {"error": "E_BAD_ID"}}
 {"in": "block PAC-055 on 06a", "expect": {"error": "E_BAD_ID"}}
+{"in": "context PAC-021: Database setup failed due to port conflict", "expect": {"action": "set", "field": "Context", "value": "Database setup failed due to port conflict", "id": "PAC-021"}}
+{"in": "instructions PAC-021: Run database migrations in order", "expect": {"action": "set", "field": "Instructions", "value": "Run database migrations in order", "id": "PAC-021"}}
+{"in": "dependency PAC-021 hard", "expect": {"action": "set", "field": "DependencyType", "value": "hard", "id": "PAC-021"}}
+{"in": "learn PAC-021: Use Docker instead of local install", "expect": {"action": "append_note", "field": "LearningNotes", "id": "PAC-021", "message": "Use Docker instead of local install"}}

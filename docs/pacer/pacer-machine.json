@@ -76,6 +76,16 @@
         "required": false,
         "type": "string"
       },
+      "Priority": {
+        "required": false,
+        "type": "string",
+        "enum": ["low", "medium", "high", "critical"]
+      },
+      "Urgency": {
+        "required": false,
+        "type": "string",
+        "enum": ["low", "medium", "high", "urgent"]
+      },
       "StartedAt": {
         "required": false,
         "type": "string",
@@ -94,6 +104,67 @@
       "Notes": {
         "required": false,
         "type": "string"
+      },
+      "ValidationRules": {
+        "required": false,
+        "type": "string",
+        "description": "Comma-separated list of custom validation rules for this PAC"
+      },
+      "Context": {
+        "required": false,
+        "type": "string",
+        "description": "What the AI needs to know to work on this PAC"
+      },
+      "PreviousAttempts": {
+        "required": false,
+        "type": "string",
+        "description": "What has been tried before (comma-separated)"
+      },
+      "RelatedWork": {
+        "required": false,
+        "type": "string",
+        "description": "Links to similar PACs or relevant work"
+      },
+      "LearningNotes": {
+        "required": false,
+        "type": "string",
+        "description": "What the AI learned from this work"
+      },
+      "DependencyType": {
+        "required": false,
+        "type": "string",
+        "enum": ["hard", "soft", "optional"],
+        "description": "Type of dependency for AI reasoning"
+      },
+      "DependencyReason": {
+        "required": false,
+        "type": "string",
+        "description": "Why this dependency exists"
+      },
+      "UnblockingStrategy": {
+        "required": false,
+        "type": "string",
+        "description": "How to resolve if blocked"
+      },
+      "Instructions": {
+        "required": false,
+        "type": "string",
+        "description": "Step-by-step what to do"
+      },
+      "ExpectedOutput": {
+        "required": false,
+        "type": "string",
+        "description": "What success looks like"
+      },
+      "ValidationCriteria": {
+        "required": false,
+        "type": "string",
+        "description": "How to verify completion"
+      },
+      "ErrorHandling": {
+        "required": false,
+        "type": "string",
+        "description": "What to do when things go wrong"
       }
     },
     "status_transitions": {

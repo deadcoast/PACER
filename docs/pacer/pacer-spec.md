@@ -77,13 +77,42 @@ For machine APIs, the CSV MAY be mirrored as an array of JSON objects using the 
 |--------------|-------------|---------------------------------------------------------------------|-----------|
 | `BlockedBy`  | string      | Comma‑separated list of valid `ID` values, or empty.               | Hard dependencies that must be DONE first. |
 | `Assignee`   | string      | Free text, MAY be an `@handle`.                                    | Owner. |
+| `Priority`   | enum string | One of: `low`, `medium`, `high`, `critical`.                       | Task priority level. |
+| `Urgency`    | enum string | One of: `low`, `medium`, `high`, `urgent`.                        | Task urgency level. |
 | `StartedAt`  | timestamp   | ISO 8601 (e.g., `2025-09-23T21:17:00Z`). Set on first entry to DOING. | Work start time. |
 | `DoneAt`     | timestamp   | ISO 8601. Set when entering DONE.                                  | Completion time. |
 | `Notes`      | string      | Free text. KEEP concise; prefer one line per update.               | Context/comments. |
 
-### 4.3 Optional Columns (Informative)
+### 4.3 AI-First Columns (Informative)
 
-Implementations MAY add columns (e.g., `Priority`, `Labels`) provided they do **not** change the meaning of required fields. Names SHOULD avoid collisions with required columns.
+| Column           | Type        | Constraints                                                        | Semantics |
+|------------------|-------------|---------------------------------------------------------------------|-----------|
+| `Context`        | string      | What the AI needs to know to work on this PAC.                    | AI understanding and background. |
+| `PreviousAttempts`| string      | What has been tried before (comma-separated).                     | AI memory to prevent repetition. |
+| `RelatedWork`    | string      | Links to similar PACs or relevant work.                          | AI pattern recognition and learning. |
+| `LearningNotes`  | string      | What the AI learned from this work.                               | AI knowledge accumulation. |
+| `DependencyType` | string      | Type of dependency: `hard`, `soft`, `optional`.                    | AI reasoning about dependencies. |
+| `DependencyReason`| string     | Why this dependency exists.                                       | AI understanding of constraints. |
+| `UnblockingStrategy`| string   | How to resolve if blocked.                                        | AI alternative approaches. |
+| `Instructions`   | string      | Step-by-step what to do.                                          | AI execution guidance. |
+| `ExpectedOutput` | string      | What success looks like.                                          | AI completion criteria. |
+| `ValidationCriteria`| string   | How to verify completion.                                         | AI self-checking. |
+| `ErrorHandling`  | string      | What to do when things go wrong.                                  | AI recovery strategies. |
+
+### 4.4 Optional Columns (Informative)
+
+| Column           | Type        | Constraints                                                        | Semantics |
+|------------------|-------------|---------------------------------------------------------------------|-----------|
+| `ValidationRules`| string      | Comma‑separated list of validation rules.                        | Custom validation requirements for this PAC. |
+
+**Common ValidationRules:**
+- `require_assignee`: PAC must have an Assignee before moving to DOING
+- `require_estimate`: PAC must have time estimate before starting
+- `block_on_weekends`: Prevent transitions on weekends
+- `require_approval`: Require explicit approval before DONE
+- `max_wip_3`: Enforce WIP limit of 3 for this assignee
+
+Implementations MAY add other columns (e.g., `Labels`, `Tags`) provided they do **not** change the meaning of required fields. Names SHOULD avoid collisions with required columns.
 
 ---
 
@@ -123,13 +152,25 @@ Keeping ≤2–3 PACs in `DOING` tends to reduce cycle time (Little’s Law).
 - `BlockedBy` is a comma‑separated list of `ID`s (no spaces recommended), or empty.
 - Each referenced `ID` **MUST** exist in the register.
 
-### 7.2 Completion Rule (Normative)
-A PAC **MAY** transition to `DONE` **iff** **every** referenced `ID` in `BlockedBy` currently has `Status = DONE`.
+### 7.2 Enhanced Dependency Types (Informative)
+Implementations MAY support enhanced dependency syntax:
+- **Hard dependencies**: `PAC-001` (must be DONE before this PAC can be DONE)
+- **Soft dependencies**: `PAC-001:soft` (preferred but not blocking)
+- **Weighted dependencies**: `PAC-001:weight:3` (priority ordering)
 
-### 7.3 Acyclicity (RECOMMENDED)
+### 7.3 AI-First Dependency Intelligence (Informative)
+For AI agents, additional dependency fields provide reasoning context:
+- **DependencyType**: `hard`, `soft`, `optional` - helps AI understand constraint severity
+- **DependencyReason**: Explains why the dependency exists - helps AI understand the relationship
+- **UnblockingStrategy**: Alternative approaches if blocked - helps AI find workarounds
+
+### 7.4 Completion Rule (Normative)
+A PAC **MAY** transition to `DONE` **iff** **every** hard dependency in `BlockedBy` currently has `Status = DONE`. Soft dependencies do not block completion.
+
+### 7.5 Acyclicity (RECOMMENDED)
 The dependency graph **SHOULD** be acyclic (a DAG). Implementations SHOULD warn on cycles. Cycles make `DONE` unattainable without administrative override.
 
-### 7.4 Administrative Overrides (Informative)
+### 7.6 Administrative Overrides (Informative)
 Projects MAY allow explicit, logged overrides for emergencies. Overrides SHOULD append a `Notes` entry explaining rationale and impact.
 
 ---
@@ -193,7 +234,33 @@ This section defines normative behavior for common mutations.
 - **Constraint:** `ID` **MUST NOT** change. Updates **SHOULD** be atomic and logged (e.g., via Git diff).
 
 ### 10.7 Delete (RECOMMENDED: Avoid)
-- Deletion of rows **SHOULD** be avoided. Prefer `Status=TODO` with `Notes` “de‑scoped” or an archival mechanism. If deletion occurs, implementations SHOULD log the removal and ensure no other `BlockedBy` references remain dangling.
+- Deletion of rows **SHOULD** be avoided. Prefer `Status=TODO` with `Notes` "de‑scoped" or an archival mechanism. If deletion occurs, implementations SHOULD log the removal and ensure no other `BlockedBy` references remain dangling.
+
+---
+
+## 10.5 AI-First Operations (Informative)
+
+This section defines AI-specific operations that enhance agent capabilities.
+
+### 10.5.1 Context Learning (Informative)
+- **Action:** Update `LearningNotes` with insights gained from work on this PAC.
+- **Purpose:** Accumulate knowledge for future similar tasks.
+- **AI Benefit:** Enables pattern recognition and improved decision-making.
+
+### 10.5.2 Dependency Reasoning (Informative)
+- **Action:** Use `DependencyType`, `DependencyReason`, and `UnblockingStrategy` to make intelligent decisions about blocked work.
+- **Purpose:** Help AI agents understand constraints and find alternatives.
+- **AI Benefit:** Enables autonomous problem-solving when dependencies are unclear.
+
+### 10.5.3 Instruction Execution (Informative)
+- **Action:** Follow `Instructions`, validate against `ExpectedOutput` and `ValidationCriteria`, handle errors per `ErrorHandling`.
+- **Purpose:** Provide clear execution guidance for AI agents.
+- **AI Benefit:** Enables deterministic task execution with built-in error recovery.
+
+### 10.5.4 Memory Management (Informative)
+- **Action:** Update `PreviousAttempts` and `RelatedWork` to build context for future work.
+- **Purpose:** Prevent repetition and enable learning from past work.
+- **AI Benefit:** Enables continuous improvement and knowledge accumulation.
 
 ---
 

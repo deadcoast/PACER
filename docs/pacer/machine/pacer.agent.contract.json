@@ -39,7 +39,7 @@
       "on_enter_DOING": "set StartedAt if empty (UTC ISO8601)",
       "on_enter_DONE": "set DoneAt (UTC ISO8601)"
     },
-    "dependency_gate": "DONE iff all BlockedBy DONE"
+    "dependency_gate": "DONE iff all hard BlockedBy DONE (soft dependencies do not block)"
   },
   "concurrency": {
     "write_strategy": "atomic_replace",
@@ -110,6 +110,36 @@
       "enabled": true,
       "rule": "all required fields must be present and non-empty",
       "error_code": "E_MISSING_REQUIRED_FIELD"
+    },
+    "priority_urgency": {
+      "enabled": true,
+      "rule": "Priority and Urgency must be valid enum values if present",
+      "error_code": "E_INVALID_PRIORITY_URGENCY"
+    },
+    "validation_rules": {
+      "enabled": true,
+      "rule": "ValidationRules must be comma-separated list of valid rules",
+      "error_code": "E_INVALID_VALIDATION_RULES"
+    },
+    "enhanced_dependencies": {
+      "enabled": true,
+      "rule": "BlockedBy may contain hard:soft:weight syntax for enhanced dependencies",
+      "error_code": "E_INVALID_DEPENDENCY_SYNTAX"
+    },
+    "ai_context_fields": {
+      "enabled": true,
+      "rule": "Context, PreviousAttempts, RelatedWork, LearningNotes must be valid if present",
+      "error_code": "E_INVALID_AI_CONTEXT"
+    },
+    "ai_dependency_intelligence": {
+      "enabled": true,
+      "rule": "DependencyType must be hard/soft/optional if present",
+      "error_code": "E_INVALID_DEPENDENCY_TYPE"
+    },
+    "ai_instruction_clarity": {
+      "enabled": true,
+      "rule": "Instructions, ExpectedOutput, ValidationCriteria, ErrorHandling must be coherent if present",
+      "error_code": "E_INVALID_AI_INSTRUCTIONS"
     }
   },
   "refusals": {
@@ -130,7 +160,13 @@
       "field_too_long": "REFUSAL: Field exceeds 1000 character limit",
       "invalid_timestamp": "REFUSAL: Invalid ISO 8601 timestamp format",
       "trailing_comma": "REFUSAL: Trailing commas not allowed",
-      "missing_required_field": "REFUSAL: Required field {field} missing or empty"
+      "missing_required_field": "REFUSAL: Required field {field} missing or empty",
+      "invalid_priority_urgency": "REFUSAL: Invalid Priority or Urgency value",
+      "invalid_validation_rules": "REFUSAL: Invalid ValidationRules syntax",
+      "invalid_dependency_syntax": "REFUSAL: Invalid dependency syntax in BlockedBy",
+      "invalid_ai_context": "REFUSAL: Invalid AI context fields",
+      "invalid_dependency_type": "REFUSAL: Invalid DependencyType value",
+      "invalid_ai_instructions": "REFUSAL: Invalid AI instruction fields"
     },
     "codes": {
       "blocked": "E_BLOCKED",
@@ -149,7 +185,13 @@
       "field_too_long": "E_FIELD_TOO_LONG",
       "invalid_timestamp": "E_INVALID_TIMESTAMP",
       "trailing_comma": "E_TRAILING_COMMA",
-      "missing_required_field": "E_MISSING_REQUIRED_FIELD"
+      "missing_required_field": "E_MISSING_REQUIRED_FIELD",
+      "invalid_priority_urgency": "E_INVALID_PRIORITY_URGENCY",
+      "invalid_validation_rules": "E_INVALID_VALIDATION_RULES",
+      "invalid_dependency_syntax": "E_INVALID_DEPENDENCY_SYNTAX",
+      "invalid_ai_context": "E_INVALID_AI_CONTEXT",
+      "invalid_dependency_type": "E_INVALID_DEPENDENCY_TYPE",
+      "invalid_ai_instructions": "E_INVALID_AI_INSTRUCTIONS"
     }
   },
   "notes": {

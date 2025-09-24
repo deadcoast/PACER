@@ -75,12 +75,49 @@ TODO → DOING → REVIEW → DONE
 | `Status` | enum | Current state (TODO, DOING, REVIEW, DONE) |
 | `DoD` | string | Definition of Done - objective criteria |
 
+### Enhanced Fields (v1.1)
+| Field | Type | Description |
+|-------|------|-------------|
+| `Priority` | enum | Task priority (low, medium, high, critical) |
+| `Urgency` | enum | Task urgency (low, medium, high, urgent) |
+| `ValidationRules` | string | Custom validation rules (comma-separated) |
+
+### AI-First Fields (v1.1)
+| Field | Type | Description |
+|-------|------|-------------|
+| `Context` | string | What the AI needs to know to work on this PAC |
+| `PreviousAttempts` | string | What has been tried before (comma-separated) |
+| `RelatedWork` | string | Links to similar PACs or relevant work |
+| `LearningNotes` | string | What the AI learned from this work |
+| `DependencyType` | enum | Type of dependency (hard, soft, optional) |
+| `DependencyReason` | string | Why this dependency exists |
+| `UnblockingStrategy` | string | How to resolve if blocked |
+| `Instructions` | string | Step-by-step what to do |
+| `ExpectedOutput` | string | What success looks like |
+| `ValidationCriteria` | string | How to verify completion |
+| `ErrorHandling` | string | What to do when things go wrong |
+
 ### Dependency Rule
 **A task can only be DONE if all its blockers are DONE.**
+
+### Enhanced Dependencies (v1.1)
+PACER v1.1 supports enhanced dependency types:
+- **Hard dependencies**: `PAC-001` (must be DONE before this PAC can be DONE)
+- **Soft dependencies**: `PAC-001:soft` (preferred but not blocking)
+- **Weighted dependencies**: `PAC-001:weight:3` (priority ordering)
+
+### AI-First Intelligence (v1.1)
+PACER v1.1 includes AI-specific fields for enhanced agent capabilities:
+- **Context & Memory**: `Context`, `PreviousAttempts`, `RelatedWork`, `LearningNotes`
+- **Dependency Intelligence**: `DependencyType`, `DependencyReason`, `UnblockingStrategy`
+- **Instruction Clarity**: `Instructions`, `ExpectedOutput`, `ValidationCriteria`, `ErrorHandling`
 
 ```csv
 # PAC-010 cannot be DONE until PAC-001 and PAC-005 are DONE
 PAC-010,Deploy app,Release,TODO,PAC-001,PAC-005,,,,"Live on production; health checks pass",
+
+# AI-First Example: Database Setup with Context & Instructions
+PAC-001,Setup database,Foundation,TODO,,@ai,high,urgent,,,"PostgreSQL running; migrations applied",,"Database setup failed due to port conflict","Attempted 3 times with different configs","See PAC-001 for similar issue","Use Docker instead of local install","hard","Database must be running","Check if PAC-001 is actually needed","Run database migrations in order","All tables created with proper indexes","Check migration logs for errors","If migration fails, rollback and retry"
 ```
 
 ---

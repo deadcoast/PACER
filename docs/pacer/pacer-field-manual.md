@@ -12,6 +12,7 @@ This manual describes **how to operate PACER day-to-day** for both humans and AI
 - **Lifecycle:** `TODO → DOING → REVIEW → DONE` (see **Spec §6: Status Lifecycle**).
 - **Completion gate:** A PAC may be `DONE` **iff** all IDs in `BlockedBy` are `DONE` (see **Spec §7.2**).
 - **Evidence:** DoD lives in the row; it must be objective (see **Spec §4.1**).
+- **AI-First:** Enhanced fields for AI agents: Context, Instructions, Dependency Intelligence (see **Spec §4.3**).
 
 Shortcuts:
 - **Quickstart (1 page):** [pacer-quickstart.md](docs/pacer/pacer-quickstart.md)
@@ -202,7 +203,35 @@ Unless overridden, each owner keeps ≤ 3 active PACs in DOING.
 
 ---
 
-## 9. Troubleshooting
+## 9. AI-First Operations (v1.1)
+
+### 9.1 Context & Memory Management
+- **Context**: Provide background information the AI needs to understand the task
+- **PreviousAttempts**: Document what has been tried before to prevent repetition
+- **RelatedWork**: Link to similar PACs for pattern recognition
+- **LearningNotes**: Record insights gained from working on this PAC
+
+### 9.2 Dependency Intelligence
+- **DependencyType**: Use `hard`, `soft`, or `optional` to help AI understand constraint severity
+- **DependencyReason**: Explain why dependencies exist for AI reasoning
+- **UnblockingStrategy**: Provide alternative approaches when blocked
+
+### 9.3 Instruction Clarity
+- **Instructions**: Write clear, step-by-step guidance for AI execution
+- **ExpectedOutput**: Define what success looks like
+- **ValidationCriteria**: Specify how to verify completion
+- **ErrorHandling**: Provide recovery strategies for common failures
+
+### 9.4 AI Agent Workflow
+1. **Read Context**: Review `Context`, `PreviousAttempts`, `RelatedWork`
+2. **Understand Dependencies**: Check `DependencyType`, `DependencyReason`, `UnblockingStrategy`
+3. **Execute Instructions**: Follow `Instructions`, validate against `ExpectedOutput`
+4. **Handle Errors**: Use `ErrorHandling` strategies if issues arise
+5. **Update Learning**: Record insights in `LearningNotes`
+
+---
+
+## 10. Troubleshooting
 
 - **Symptom:** Can’t mark DONE.  
   **Check:** A `BlockedBy` ID isn’t DONE yet. See **Spec §7.2**.

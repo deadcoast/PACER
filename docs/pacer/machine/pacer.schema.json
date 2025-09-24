@@ -63,6 +63,26 @@
         "type": "string",
         "description": "Free text or @handle."
       },
+      "Priority": {
+        "type": "string",
+        "description": "Task priority level.",
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "Urgency": {
+        "type": "string",
+        "description": "Task urgency level.",
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "urgent"
+        ]
+      },
       "StartedAt": {
         "type": "string",
         "description": "UTC ISO 8601 timestamp set on first entry to DOING.",
@@ -81,6 +101,55 @@
       "Notes": {
         "type": "string",
         "description": "Free text, one-line updates preferred."
+      },
+      "ValidationRules": {
+        "type": "string",
+        "description": "Comma-separated list of custom validation rules for this PAC."
+      },
+      "Context": {
+        "type": "string",
+        "description": "What the AI needs to know to work on this PAC."
+      },
+      "PreviousAttempts": {
+        "type": "string",
+        "description": "What has been tried before (comma-separated)."
+      },
+      "RelatedWork": {
+        "type": "string",
+        "description": "Links to similar PACs or relevant work."
+      },
+      "LearningNotes": {
+        "type": "string",
+        "description": "What the AI learned from this work."
+      },
+      "DependencyType": {
+        "type": "string",
+        "description": "Type of dependency: hard, soft, optional.",
+        "enum": ["hard", "soft", "optional"]
+      },
+      "DependencyReason": {
+        "type": "string",
+        "description": "Why this dependency exists."
+      },
+      "UnblockingStrategy": {
+        "type": "string",
+        "description": "How to resolve if blocked."
+      },
+      "Instructions": {
+        "type": "string",
+        "description": "Step-by-step what to do."
+      },
+      "ExpectedOutput": {
+        "type": "string",
+        "description": "What success looks like."
+      },
+      "ValidationCriteria": {
+        "type": "string",
+        "description": "How to verify completion."
+      },
+      "ErrorHandling": {
+        "type": "string",
+        "description": "What to do when things go wrong."
       }
     }
   },

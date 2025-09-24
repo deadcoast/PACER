@@ -150,6 +150,17 @@ Choose the smallest thing that works. Keep each register self‑consistent.
 **Q10: Can I attach artifacts (links, screenshots)?**  
 - Put URLs in `Notes` (or add an `Artifacts` column if frequent; Spec §8).
 
+**Q11: How do AI agents use the new AI-First fields?**  
+- **Context**: Provides background for AI understanding
+- **Instructions**: Step-by-step guidance for execution
+- **DependencyType**: Helps AI reason about constraints
+- **LearningNotes**: Accumulates knowledge for future tasks
+
+**Q12: What's the difference between hard, soft, and optional dependencies?**  
+- **Hard**: Must be DONE before this PAC can be DONE (blocks completion)
+- **Soft**: Preferred but not blocking (AI can work around)
+- **Optional**: Nice to have but not required (AI can skip)
+
 ---
 
 ## 5) Cross‑Doc Map

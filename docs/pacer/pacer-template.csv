@@ -1,1 +1,1 @@
-ID,Title,Phase,Status,BlockedBy,Assignee,StartedAt,DoneAt,DoD,Notes
+ID,Title,Phase,Status,BlockedBy,Assignee,Priority,Urgency,StartedAt,DoneAt,DoD,Notes,ValidationRules,Context,PreviousAttempts,RelatedWork,LearningNotes,DependencyType,DependencyReason,UnblockingStrategy,Instructions,ExpectedOutput,ValidationCriteria,ErrorHandling
