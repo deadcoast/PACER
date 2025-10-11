@@ -1,4 +1,4 @@
-# **Machine-readable PACER artifacts** 
+# **Machine-readable PACER artifacts**
 
 > **AI/LLM Priority**: These artifacts are specifically designed for AI consumption and automation. Human readability is secondary.
 
@@ -13,7 +13,7 @@ Point your IDE's AI directly at:
 * **Commands pack (JSONL) for parser testing / few-shot priming:**
   [pacer-commands.jsonl](../pacer-commands.jsonl)
 
-### What’s inside the machine file (designed for deterministic AI behavior)
+## Machine File (designed for deterministic AI behavior)
 
 * **Register contract:** column set, enum values, `ID` regex, invariants, CSV rules (RFC 4180), extensibility.
 * **Lifecycle model:** allowed transitions, timestamp semantics.
@@ -25,7 +25,7 @@ Point your IDE's AI directly at:
 * **AI-First fields:** Context, Instructions, Dependency Intelligence, Learning Notes for autonomous AI operation.
 * **Examples:** minimal row + notes line format.
 
-### How to wire this in Cursor / IDE AIs
+## How to wire this in Cursor / IDE AIs
 
 1. **Pin the JSON:** Put `docs/pacer/pacer-machine.json` in your repo.
 2. **System prompt (one-time):**

@@ -1,11 +1,12 @@
 # PACER Specification v1.1 (Authoritative)
-**PACER — Project Actions, Constraints & Evidence Register**
+
+PACER — Project Actions, Constraints & Evidence Register
 
 This document defines the **authoritative, normative** specification for PACER v1.1.
 Implementations **MUST** follow this specification to claim PACER compatibility.
 
 > **AI/LLM Priority**: This format is optimized for AI consumption and automation. Human readability is a bonus, not a primary feature.
-
+>
 > Normative keywords (MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL) are to be interpreted as described in RFC 2119.
 
 ---
@@ -39,13 +40,15 @@ The register **MUST** be encoded as UTF‑8 without BOM.
 Columns **MUST** appear at least in the **Required Column Set** (Section 4.1). Additional columns are allowed (Section 8).
   
 The file **MUST**:
-  - Contain a header row naming columns exactly as specified.
-  - Contain **one row per PAC**.
-  - Use LF line endings (Unix-style).
+
+- Contain a header row naming columns exactly as specified.
+- Contain **one row per PAC**.
+- Use LF line endings (Unix-style).
 
 The file **MUST NOT**:
-  - Contain empty rows.
-  - Contain duplicate ID values.
+
+- Contain empty rows.
+- Contain duplicate ID values.
 
 **Delimiter & quoting.** Comma `,` as delimiter. Fields containing commas, quotes, or newlines **MUST** be quoted per RFC 4180. Double quotes inside a quoted field **MUST** be escaped by doubling them. The file **MUST NOT** contain trailing commas.
 
@@ -106,6 +109,7 @@ For machine APIs, the CSV MAY be mirrored as an array of JSON objects using the 
 | `ValidationRules`| string      | Comma‑separated list of validation rules.                        | Custom validation requirements for this PAC. |
 
 **Common ValidationRules:**
+
 - `require_assignee`: PAC must have an Assignee before moving to DOING
 - `require_estimate`: PAC must have time estimate before starting
 - `block_on_weekends`: Prevent transitions on weekends
@@ -119,11 +123,13 @@ Implementations MAY add other columns (e.g., `Labels`, `Tags`) provided they do 
 ## 5. Identifiers
 
 ### 5.1 ID Grammar (Normative)
+
 - Default pattern: ``^PAC-\d{3,4}$`` (e.g., `PAC-021`, `PAC-1001`).  
 - The textual **prefix** (`PAC`) MAY be changed project‑wide, but all IDs **MUST** remain unique and stable.
 - **IDs MUST NOT change** after creation. If scope changes, create a new PAC and cross‑reference in `Notes`.
 
 ### 5.2 Uniqueness (Normative)
+
 - All `ID` values in a single register **MUST** be unique (case‑sensitive).
 
 ---
@@ -131,17 +137,20 @@ Implementations MAY add other columns (e.g., `Labels`, `Tags`) provided they do 
 ## 6. Status Lifecycle
 
 ### 6.1 Allowed Transitions (Normative)
+
 - `TODO → DOING`
 - `DOING → REVIEW` or `DOING → TODO` (rollback)
 - `REVIEW → DONE` or `REVIEW → DOING` (changes requested)
 - `DONE` is terminal. To undo, you **MUST** add a `Notes` entry explaining the rollback and move to `REVIEW` or `DOING`.
 
 ### 6.2 Timestamp Semantics (Normative)
+
 - On first transition into `DOING`, set `StartedAt` (if empty).
 - On transition into `DONE`, set `DoneAt`.
 - Timestamps **SHOULD** be in UTC ISO 8601 (`YYYY-MM-DDThh:mm:ssZ`).
 
 ### 6.3 WIP Guidance (Informative)
+
 Keeping ≤2–3 PACs in `DOING` tends to reduce cycle time (Little’s Law).
 
 ---
@@ -149,28 +158,36 @@ Keeping ≤2–3 PACs in `DOING` tends to reduce cycle time (Little’s Law).
 ## 7. Dependencies
 
 ### 7.1 Dependency Encoding (Normative)
+
 - `BlockedBy` is a comma‑separated list of `ID`s (no spaces recommended), or empty.
 - Each referenced `ID` **MUST** exist in the register.
 
 ### 7.2 Enhanced Dependency Types (Informative)
+
 Implementations MAY support enhanced dependency syntax:
+
 - **Hard dependencies**: `PAC-001` (must be DONE before this PAC can be DONE)
 - **Soft dependencies**: `PAC-001:soft` (preferred but not blocking)
 - **Weighted dependencies**: `PAC-001:weight:3` (priority ordering)
 
 ### 7.3 AI-First Dependency Intelligence (Informative)
+
 For AI agents, additional dependency fields provide reasoning context:
+
 - **DependencyType**: `hard`, `soft`, `optional` - helps AI understand constraint severity
 - **DependencyReason**: Explains why the dependency exists - helps AI understand the relationship
 - **UnblockingStrategy**: Alternative approaches if blocked - helps AI find workarounds
 
 ### 7.4 Completion Rule (Normative)
+
 A PAC **MAY** transition to `DONE` **iff** **every** hard dependency in `BlockedBy` currently has `Status = DONE`. Soft dependencies do not block completion.
 
 ### 7.5 Acyclicity (RECOMMENDED)
+
 The dependency graph **SHOULD** be acyclic (a DAG). Implementations SHOULD warn on cycles. Cycles make `DONE` unattainable without administrative override.
 
 ### 7.6 Administrative Overrides (Informative)
+
 Projects MAY allow explicit, logged overrides for emergencies. Overrides SHOULD append a `Notes` entry explaining rationale and impact.
 
 ---
@@ -186,10 +203,13 @@ Projects MAY allow explicit, logged overrides for emergencies. Overrides SHOULD 
 ## 9. Validation
 
 ### 9.1 JSON Schema (Normative)
+
 PACER provides an official JSON Schema: `docs/pacer/machine/pacer.schema.json`. CSV registers MAY be converted to JSON and validated against the schema.
 
 ### 9.2 Register‑Level Checks (Normative)
+
 Implementations **MUST** perform at least:
+
 1. **Header check:** Required columns present.
 2. **Row check:** `ID`, `Title`, `Phase`, `Status`, `DoD` non‑empty and valid.
 3. **Uniqueness:** `ID` uniqueness across file.
@@ -197,6 +217,7 @@ Implementations **MUST** perform at least:
 5. **Completion rule:** Refuse or flag `Status = DONE` when any blocker is not `DONE`.
 
 ### 9.3 Severity & Handling (RECOMMENDED)
+
 - **ERROR** → refuse write/transition.
 - **WARN** → permit write but flag (e.g., long `Notes`, missing `Assignee`).
 - **INFO** → stylistic suggestions (e.g., Title > 80 chars).
@@ -208,32 +229,39 @@ Implementations **MUST** perform at least:
 This section defines normative behavior for common mutations.
 
 ### 10.1 Create PAC (Normative)
+
 - **Inputs:** `ID`, `Title`, `Phase`, `Status=TODO`, `DoD`, optional `BlockedBy`, `Assignee`.
 - **Preconditions:** `ID` unused; required fields valid.
 - **Postconditions:** Row appended. `StartedAt`/`DoneAt` empty.
 
 ### 10.2 Start Work (Normative)
+
 - **Action:** Set `Status=DOING`. If `StartedAt` empty, set to current UTC ISO timestamp.
 - **Preconditions:** `Status` is `TODO` (or `REVIEW` if rework).
 
 ### 10.3 Submit for Review (Normative)
+
 - **Action:** Set `Status=REVIEW`.
 - **Preconditions:** `Status` is `DOING`.
 
 ### 10.4 Complete (Normative)
+
 - **Action:** Set `Status=DONE`, set `DoneAt` (UTC ISO).
 - **Preconditions:** All `BlockedBy` rows have `Status=DONE`. `DoD` satisfied.
 - **Failure:** Refuse transition; append `Notes` explaining unmet blockers.
 
 ### 10.5 Rollback (Normative)
+
 - **Action:** Move `DONE → REVIEW` or `REVIEW → DOING`.
 - **Requirement:** Append `Notes` describing the reason.
 
 ### 10.6 Edit Non‑Key Fields (Normative)
+
 - **Action:** Update `Title`, `Phase`, `DoD`, `Notes`, `Assignee`, `BlockedBy`.
 - **Constraint:** `ID` **MUST NOT** change. Updates **SHOULD** be atomic and logged (e.g., via Git diff).
 
 ### 10.7 Delete (RECOMMENDED: Avoid)
+
 - Deletion of rows **SHOULD** be avoided. Prefer `Status=TODO` with `Notes` "de‑scoped" or an archival mechanism. If deletion occurs, implementations SHOULD log the removal and ensure no other `BlockedBy` references remain dangling.
 
 ---
@@ -243,21 +271,25 @@ This section defines normative behavior for common mutations.
 This section defines AI-specific operations that enhance agent capabilities.
 
 ### 10.5.1 Context Learning (Informative)
+
 - **Action:** Update `LearningNotes` with insights gained from work on this PAC.
 - **Purpose:** Accumulate knowledge for future similar tasks.
 - **AI Benefit:** Enables pattern recognition and improved decision-making.
 
 ### 10.5.2 Dependency Reasoning (Informative)
+
 - **Action:** Use `DependencyType`, `DependencyReason`, and `UnblockingStrategy` to make intelligent decisions about blocked work.
 - **Purpose:** Help AI agents understand constraints and find alternatives.
 - **AI Benefit:** Enables autonomous problem-solving when dependencies are unclear.
 
 ### 10.5.3 Instruction Execution (Informative)
+
 - **Action:** Follow `Instructions`, validate against `ExpectedOutput` and `ValidationCriteria`, handle errors per `ErrorHandling`.
 - **Purpose:** Provide clear execution guidance for AI agents.
 - **AI Benefit:** Enables deterministic task execution with built-in error recovery.
 
 ### 10.5.4 Memory Management (Informative)
+
 - **Action:** Update `PreviousAttempts` and `RelatedWork` to build context for future work.
 - **Purpose:** Prevent repetition and enable learning from past work.
 - **AI Benefit:** Enables continuous improvement and knowledge accumulation.
@@ -289,12 +321,14 @@ Implementations MAY define **profiles** to tailor enums or columns for a domain 
 ## 14. Examples
 
 ### 14.1 Minimal CSV (With Header)
-```
+
+```pace
 ID,Title,Phase,Status,BlockedBy,Assignee,StartedAt,DoneAt,DoD,Notes
 PAC-021,Create/Edit/Delete Contest,Contest Mgmt,TODO,,,,"","Form with title/desc/dates/rules; status cycle draft→active→voting→completed",""
 ```
 
 ### 14.2 Typical Lifecycle
+
 1. Create → `Status=TODO`
 2. Start → `Status=DOING`, set `StartedAt`
 3. Review → `Status=REVIEW`
@@ -332,5 +366,3 @@ PAC-021,Create/Edit/Delete Contest,Contest Mgmt,TODO,,,,"","Form with title/desc
 - **DAG** — Directed Acyclic Graph induced by `BlockedBy` references.
 
 ---
-
-*End of PACER Specification v1.1*

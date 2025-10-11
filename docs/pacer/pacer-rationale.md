@@ -1,4 +1,5 @@
 # PACER Rationale (Design Notes)
+
 **Status:** Stable • **Applies to:** PACER v1.1 • **Spec:** [pacer-spec.md](pacer-spec.md)
 
 This document explains **why** PACER is shaped the way it is and **when** to use it. It complements, but does not replace, the **authoritative spec**.
@@ -8,7 +9,9 @@ This document explains **why** PACER is shaped the way it is and **when** to use
 ---
 
 ## 1. Design Goals
+
 PACER is a small tool with sharp edges. We optimized for:
+
 1. **AI/LLM consumption.** Primary design goal is machine readability and deterministic processing.
 2. **Single source of truth.** One file, one register, no desync.
 3. **Determinism.** Clear state transitions and a hard dependency gate (Spec §6–§7).
@@ -21,12 +24,14 @@ PACER is a small tool with sharp edges. We optimized for:
 ---
 
 ## 2. Why a Flat CSV?
+
 - **Visibility > ceremony.** A flat table you can open in any editor beats a deep hierarchy for day-to-day execution.
 - **Zero vendor lock-in.** CSV is portable across Notion, Trello, GitHub, Jira (via import), Sheets, etc.
 - **Diffable state.** You can see exactly what changed (IDs, statuses, timestamps) in a single commit.
 - **Round-trippable.** Machines can read → act → write without bespoke APIs (Spec §3, §9).
 
 **Alternatives considered:**
+
 - **Boards/Kanban only.** Great for visualization, weak for audit and automation unless paired with APIs.
 - **Heavyweight issue trackers.** Power features, higher friction; often overkill for solo or lean teams.
 - **Freeform docs.** Good for planning; brittle for execution (“done” ambiguous, dependencies not enforced).
@@ -36,6 +41,7 @@ PACER often coexists with these tools; it’s the **register** that keeps them h
 ---
 
 ## 3. Hard Gates and the DAG
+
 Dependencies (`BlockedBy`) induce a **directed acyclic graph** (DAG) over PACs. Enforcing **Spec §7.2**—“DONE iff blockers are DONE”—has three effects:
 
 1. **Prevents premature integration.** Tasks can’t be closed out of order.
@@ -47,7 +53,9 @@ Dependencies (`BlockedBy`) induce a **directed acyclic graph** (DAG) over PACs. 
 ---
 
 ## 4. Definition of Done (DoD) In-Row
+
 Embedding DoD next to the task (Spec §4.1) reduces coordination overhead:
+
 - **Local truth.** Reviewers and agents don’t hunt through docs to verify completion.
 - **Rework reduction.** Objective criteria cut the “almost done” ambiguity.
 - **Automation-ready.** Agents can parse DoD phrases (e.g., “tests pass”, “endpoint returns 200”) and run checks.
@@ -57,7 +65,9 @@ Guideline: DoD should be **observable** (testable result, artifact, or URL), not
 ---
 
 ## 5. Small WIP, Shorter Cycle Time
+
 PACER encourages small Work-In-Progress (≤ 2–3 in DOING) via the Field Manual. Light theory backing:
+
 - **Little’s Law:** `WIP ≈ Throughput × Cycle Time`. Keeping WIP small lowers average cycle time.
 - **Queue discipline:** Blocked work surfaces fast and is handled or de-scoped instead of lingering.
 
@@ -66,7 +76,9 @@ You don’t need a full queueing model—just enforce the status rules and watch
 ---
 
 ## 6. Agent Model (Why It Works With AI)
+
 PACER minimizes ambiguity for agents:
+
 - **Deterministic transitions** (Spec §6) → clear state machine.
 - **Dependency gate** (Spec §7.2) → refusal conditions are obvious and explainable.
 - **Schema** (docs/pacer/machine/pacer.schema.json) → structural validation before writes.
@@ -77,7 +89,9 @@ Agents can do high-fidelity operations (“Start”, “Done”, “Block on …
 ---
 
 ## 7. Evidence, Not Hype
+
 Even solo, you can collect enough signal to justify PACER (see **Evidence Pack**):
+
 - Throughput/day (`DONE` count)
 - Median cycle time (`DoneAt − StartedAt`)
 - Blocked ratio (time waiting on blockers / total elapsed)
@@ -88,6 +102,7 @@ This is a **working note** level of proof: small, repeatable, falsifiable.
 ---
 
 ## 8. Anti‑Patterns (Smells)
+
 - **Bloated DoD.** If a row’s DoD is an essay, split the PAC.
 - **Zombie DOING.** Items in DOING > 48h without progress: split, unblock, or de-scope.
 - **Phantom dependencies.** `BlockedBy` references that never finish—re-evaluate graph.
@@ -97,7 +112,9 @@ This is a **working note** level of proof: small, repeatable, falsifiable.
 ---
 
 ## 9. Extensibility Without Drift
+
 PACER allows additional columns (Spec §8) and project‑specific profiles (Spec §13). Guardrails:
+
 - **Don’t overload** existing columns (e.g., put labels in a new `Labels` field, not `Notes`).
 - **Round‑trip** unknown columns intact—agents should preserve what they don’t understand.
 - **Document deviations** in a short “Profile” file that cites the base spec and the diff.
@@ -105,6 +122,7 @@ PACER allows additional columns (Spec §8) and project‑specific profiles (Spec
 ---
 
 ## 10. When Not to Use PACER
+
 - You need **complex workflows** (multi‑stage approvals, SLAs) where a tracker’s automation is essential—use Jira/Asana and keep PACER as a mirror *only if* needed.
 - You need **fine‑grained sub‑task hierarchies**—PACER is flat; you can simulate with IDs and Notes, but don’t fight the model.
 - You want **time tracking/billing** directly in the tracker—use dedicated tools and link by `ID` in commit messages or notes.
@@ -114,6 +132,7 @@ PACER shines in **solo/lean** contexts and as a **ground truth register** alongs
 ---
 
 ## 11. Comparison Summary
+
 | Criterion | PACER | Kanban Board | Heavy Tracker |
 |---|---|---|---|
 | Single source of truth | ✅ one file | ❌ often scattered | ❌ many objects |
@@ -126,6 +145,7 @@ PACER shines in **solo/lean** contexts and as a **ground truth register** alongs
 ---
 
 ## 12. Implementation Notes
+
 - Prefer **atomic writes** and preserve unknown columns (Spec §11, §8).  
 - Validate before write; refuse `DONE` with unmet blockers (Spec §9).  
 - Use UTC timestamps everywhere; avoid PII in `Notes` (Spec §12).
@@ -137,23 +157,27 @@ PACER shines in **solo/lean** contexts and as a **ground truth register** alongs
 PACER v1.1 introduces AI-specific fields that enhance autonomous agent capabilities:
 
 ### 12.1 Context & Memory
+
 - **Context**: Provides background information for AI understanding
 - **PreviousAttempts**: Prevents repetition of failed approaches
 - **RelatedWork**: Enables pattern recognition and learning
 - **LearningNotes**: Accumulates knowledge for future tasks
 
 ### 12.2 Dependency Intelligence
+
 - **DependencyType**: Helps AI understand constraint severity (`hard`, `soft`, `optional`)
 - **DependencyReason**: Provides reasoning context for AI decision-making
 - **UnblockingStrategy**: Offers alternative approaches when blocked
 
 ### 12.3 Instruction Clarity
+
 - **Instructions**: Clear, step-by-step guidance for AI execution
 - **ExpectedOutput**: Defines success criteria for AI validation
 - **ValidationCriteria**: Enables AI self-checking
 - **ErrorHandling**: Provides recovery strategies for AI resilience
 
 **AI Benefits:**
+
 - **Autonomous Operation**: AIs can work independently with clear instructions
 - **Learning & Memory**: Prevents repetition and builds knowledge over time
 - **Intelligent Reasoning**: Enhanced dependency understanding and problem-solving
@@ -162,6 +186,7 @@ PACER v1.1 introduces AI-specific fields that enhance autonomous agent capabilit
 ---
 
 ## 13. References
+
 - **Spec:** [pacer-spec.md](pacer-spec.md) — §4 Data Model, §6 Status, §7 Dependencies, §9 Validation
 - **Field Manual:** [pacer-field-manual.md](pacer-field-manual.md)
 - **Quickstart:** [pacer-quickstart.md](pacer-quickstart.md)
@@ -170,5 +195,3 @@ PACER v1.1 introduces AI-specific fields that enhance autonomous agent capabilit
 - **Schema:** [pacer.schema.json](machine/pacer.schema.json)
 
 ---
-
-**End of PACER Rationale (Design Notes)**

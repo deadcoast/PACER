@@ -1,4 +1,5 @@
 # PACER Evidence Pack (Proof Template)
+
 **Status:** Stable • **Applies to:** PACER v1.1 • **Spec:** [pacer-spec.md](pacer-spec.md) • **Ops:** [pacer-field-manual.md](pacer-field-manual.md)
 
 This pack shows how to collect **small, credible, repeatable evidence** that PACER improves execution—without a large study. It provides templates, formulas, and a 3–7 day procedure you can run solo.
@@ -8,7 +9,9 @@ This pack shows how to collect **small, credible, repeatable evidence** that PAC
 ---
 
 ## 1. Objectives
+
 Demonstrate—using your own PACER register—that:
+
 1. Work moves predictably through **TODO → DOING → REVIEW → DONE** (Spec §6).
 2. The **dependency gate** (Spec §7.2) prevents out‑of‑order completion.
 3. **Embedded DoD** (Spec §4.1) reduces rework / back‑and‑forth.
@@ -17,7 +20,9 @@ Demonstrate—using your own PACER register—that:
 ---
 
 ## 2. Minimal Data to Capture
+
 From your register (CSV):
+
 - `ID, Title, Status, StartedAt, DoneAt, BlockedBy, Notes`
 - Optional: `Assignee` (if >1 person/agent)
 
@@ -26,6 +31,7 @@ You already have this if you follow the Spec and Field Manual. Keep timestamps i
 ---
 
 ## 3. Daily Operational Log (Template)
+
 Record notable transitions or decisions (10–20 entries is enough).
 
 | Timestamp (UTC) | Action | ID | Detail |
@@ -36,9 +42,9 @@ Record notable transitions or decisions (10–20 entries is enough).
 | 2025‑09‑23T16:41Z | refusal | PAC‑032 | could not close; blocked by PAC‑011 |
 | 2025‑09‑24T09:08Z | unblock | PAC‑032 | PAC‑011 done; resuming |
 
-**Notes**
-- “refusal” entries are valuable; they prove the dependency gate is effective (Spec §7.2).
-- Keep each line short and objective; the full context can live in the PAC `Notes`.
+Notes:
+    - “refusal” entries are valuable; they prove the dependency gate is effective (Spec §7.2).
+    - Keep each line short and objective; the full context can live in the PAC `Notes`.
 
 ---
 
@@ -47,6 +53,7 @@ Record notable transitions or decisions (10–20 entries is enough).
 > Run these over a **3–7 day** window. A handful of completed PACs is enough to see patterns.
 
 ### 4.1 AI-First Metrics (v1.1)
+
 - **Context Utilization**: % of PACs with `Context` field populated
 - **Instruction Clarity**: % of PACs with complete `Instructions` and `ExpectedOutput`
 - **Learning Accumulation**: Number of `LearningNotes` entries per PAC
@@ -54,31 +61,37 @@ Record notable transitions or decisions (10–20 entries is enough).
 - **Error Recovery**: % of PACs with `ErrorHandling` strategies
 
 ### 4.1 Throughput / Day
+
 - **Definition:** number of PACs with `Status = DONE` per day.
 - **Formula:** `throughput = count(DONE) / days_observed`
 - **Use:** Baseline cadence; compare weeks.
 
 ### 4.2 Cycle Time (per PAC)
+
 - **Definition:** elapsed time a PAC spends from `DOING` to `DONE`.
 - **Formula:** `cycle_time = DoneAt − StartedAt` (hours).
 - **Aggregate:** median, p75, p90.
 - **Target:** Consistent median; shrinking tails over time.
 
 ### 4.3 WIP (Work‑In‑Progress)
+
 - **Definition:** number of PACs in `DOING` at any point.
 - **Guideline:** keep ≤ **3** per person/agent (Field Manual §6.4).
 - **Observation:** As WIP ↓, cycle time tends to ↓ (Little’s Law).
 
 ### 4.4 Review Latency
+
 - **Definition:** time from entering `REVIEW` to `DONE`.
 - **Use:** If long, add a checklist or automate checks in DoD.
 
 ### 4.5 Blocked Ratio
+
 - **Definition:** proportion of elapsed time a PAC was blocked by unmet dependencies.
 - **Approximation:** count days where a PAC in DOING/REVIEW had at least one blocker not DONE; divide by total days in that state.
 - **Use:** High ratio → simplify the graph or reorder work.
 
 ### 4.6 Aging DOING
+
 - **Definition:** PACs in `DOING` for more than N hours (suggest **48h**).
 - **Use:** Split or escalate; indicates hidden blockers or oversized scope.
 
@@ -109,6 +122,7 @@ Record notable transitions or decisions (10–20 entries is enough).
 ## 6. Ready‑to‑Fill Tables
 
 ### 6.1 Metrics Summary
+
 | Metric | Value | Notes |
 |---|---:|---|
 | Throughput/day |  |  window: ___ days |
@@ -119,10 +133,12 @@ Record notable transitions or decisions (10–20 entries is enough).
 | Aging DOING (count > 48h) |  |  |
 
 ### 6.2 PAC Sample (DONE rows only)
+
 | ID | Title | StartedAt | DoneAt | Cycle (h) | BlockedBy | Notes (summary) |
 |---|---|---|---|---:|---|---|
 
 ### 6.3 Review Latency Sample
+
 | ID | Entered REVIEW | DoneAt | Review (h) | Notes |
 |---|---|---|---:|---|
 
@@ -131,10 +147,12 @@ Record notable transitions or decisions (10–20 entries is enough).
 ## 7. Optional Visuals (How‑To)
 
 ### 7.1 Histogram of Cycle Times
+
 - Bin edges (hours): `<12`, `12–24`, `24–48`, `>48`
 - Count DONE PACs per bin and draw a simple bar chart (any tool).
 
 ### 7.2 Cumulative Flow (Lite)
+
 - For each day, count PACs in `TODO`, `DOING`, `REVIEW`, `DONE`.
 - Plot stacked areas; steady bands indicate healthy flow.
 
@@ -145,7 +163,8 @@ Record notable transitions or decisions (10–20 entries is enough).
 > You can compute these with a spreadsheet. If you prefer scripts, below are simple patterns (pseudocode).
 
 **Cycle time per DONE row (pseudo):**
-```
+
+```pace
 for row in rows where Status == DONE:
   cycle_hours = hours_between(row.DoneAt, row.StartedAt)
   collect(cycle_hours)
@@ -155,19 +174,22 @@ p90 = percentile(cycle_hours, 90)
 ```
 
 **Throughput/day (pseudo):**
-```
+
+```pace
 by_day = group(rows where Status == DONE, day(row.DoneAt))
 throughput = sum(count(by_day)) / days_observed
 ```
 
 **Aging DOING (pseudo):**
-```
+
+```pace
 aging = count(rows where Status == DOING and StartedAt < now - 48h)
 ```
 
 ---
 
 ## 9. Linking Evidence to Claims
+
 - **Predictable flow** → show throughput/day and CFD (Spec §6).
 - **Dependency enforcement** → list refusal log entries (Spec §7.2).
 - **Reduced rework via DoD** → include a before/after anecdote where DoD clarified acceptance (Spec §4.1).
@@ -176,6 +198,7 @@ aging = count(rows where Status == DOING and StartedAt < now - 48h)
 ---
 
 ## 10. FAQ (Evidence)
+
 **Q: Is 3 days enough?**  
 A: For a working note, yes. Add more windows over time to strengthen the trend.
 
@@ -191,11 +214,10 @@ A: Make modest, falsifiable claims: “Reduced cycle time variability after enfo
 ---
 
 ## 11. References
+
 - **Spec:** [pacer-spec.md](pacer-spec.md) — §4 Data Model, §6 Status Lifecycle, §7 Dependencies, §9 Validation
 - **Field Manual:** [pacer-field-manual.md](pacer-field-manual.md) — reports & daily ops
 - **Quickstart:** [pacer-quickstart.md](pacer-quickstart.md)
 - **Schema:** [pacer.schema.json](machine/pacer.schema.json)
 
 ---
-
-**End of PACER Evidence Pack**
