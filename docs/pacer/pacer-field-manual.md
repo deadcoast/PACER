@@ -1,9 +1,9 @@
 # PACER Field Manual (Ops Guide)
-**Status:** Stable • **Applies to:** PACER v1.1 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md)
+**Status:** Stable • **Applies to:** PACER v1.1 • **Spec:** [pacer-spec.md](pacer-spec.md)
 
 This manual describes **how to operate PACER day-to-day** for both humans and AI agents. It implements the rules defined in the **authoritative spec** and adds practical workflows optimized for AI/LLM consumption.
 
-> If a rule here appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.1](docs/pacer/pacer-spec.md)**.
+> If a rule here appears to conflict with the spec, the spec wins. See: **[PACER Specification v1.1](pacer-spec.md)**.
 
 ---
 
@@ -15,10 +15,10 @@ This manual describes **how to operate PACER day-to-day** for both humans and AI
 - **AI-First:** Enhanced fields for AI agents: Context, Instructions, Dependency Intelligence (see **Spec §4.3**).
 
 Shortcuts:
-- **Quickstart (1 page):** [pacer-quickstart.md](docs/pacer/pacer-quickstart.md)
-- **Design notes:** [pacer-rationale.md](docs/pacer/pacer-rationale.md)
-- **Evidence pack:** [pacer-evidence.md](docs/pacer/pacer-evidence.md)
-- **FAQ & patterns:** [pacer-faq.md](docs/pacer/pacer-faq.md)
+- **Quickstart (1 page):** [pacer-quickstart.md](pacer-quickstart.md)
+- **Design notes:** [pacer-rationale.md](pacer-rationale.md)
+- **Evidence pack:** [pacer-evidence.md](pacer-evidence.md)
+- **FAQ & patterns:** [pacer-faq.md](pacer-faq.md)
 
 ---
 
@@ -175,7 +175,7 @@ Unless overridden, each owner keeps ≤ 3 active PACs in DOING.
 - Afterward, reconcile dependencies; avoid repeated overrides (see **Spec §7.4**).
 
 ### 7.5 Import/Export
-- CSV is the source; JSON export MAY be used for validation against `docs/pacer/machine/pacer.schema.json`.  
+- CSV is the source; JSON export MAY be used for validation against `machine/pacer.schema.json`.  
 - Keep headers exact. Preserve unknown columns on round-trip (see **Spec §8**).
 
 ---
@@ -253,7 +253,7 @@ Unless overridden, each owner keeps ≤ 3 active PACs in DOING.
 - **Rationale:** [pacer-rationale.md](pacer-rationale.md)
 - **Evidence Pack:** [pacer-evidence.md](pacer-evidence.md)
 - **FAQ & Patterns:** [pacer-faq.md](pacer-faq.md)
-- **JSON Schema:** [pacer.schema.json](docs/pacer/machine/pacer.schema.json)
+- **JSON Schema:** [pacer.schema.json](machine/pacer.schema.json)
 
 ---
 

@@ -1,5 +1,5 @@
 # PACER Quickstart (1‑Page)
-**Status:** Stable • **Applies to:** PACER v1.1 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md) • **Ops:** [pacer-field-manual.md](docs/pacer/pacer-field-manual.md)
+**Status:** Stable • **Applies to:** PACER v1.1 • **Spec:** [pacer-spec.md](pacer-spec.md) • **Ops:** [pacer-field-manual.md](pacer-field-manual.md)
 
 PACER = one CSV, one row per task ("PAC"). This page shows the **minimum** you need to start, work, and finish—optimized for AI/LLM consumption.
 
@@ -85,7 +85,7 @@ More patterns: **[pacer-field-manual.md](pacer-field-manual.md)** and **[pacer-f
 ---
 
 ## 9) Validate (Optional but Recommended)
-- Convert CSV to JSON and validate against **[pacer.schema.json](docs/pacer/machine/pacer.schema.json)**.  
+- Convert CSV to JSON and validate against **[pacer.schema.json](machine/pacer.schema.json)**.  
 - Minimum checks: header present, ID unique/immutable, enums valid, dependency gate enforced — **Spec §9**.
 
 ---

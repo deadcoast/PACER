@@ -1,7 +1,7 @@
 # PACER Patterns & FAQ
-**Status:** Stable • **Applies to:** PACER v1.1 • **Spec:** [pacer-spec.md](docs/pacer/pacer-spec.md) • **Ops:** [pacer-field-manual.md](docs/pacer/pacer-field-manual.md)
+**Status:** Stable • **Applies to:** PACER v1.1 • **Spec:** [pacer-spec.md](pacer-spec.md) • **Ops:** [pacer-field-manual.md](pacer-field-manual.md)
 
-Practical patterns, do/don't guidance, and answers to common questions. For normative rules, see the **[PACER Specification v1.1](docs/pacer/pacer-spec.md)**.
+Practical patterns, do/don't guidance, and answers to common questions. For normative rules, see the **[PACER Specification v1.1](pacer-spec.md)**.
 
 ---
 
@@ -169,7 +169,7 @@ Choose the smallest thing that works. Keep each register self‑consistent.
 - **Quickstart:** [pacer-quickstart.md](pacer-quickstart.md) — 1‑page starter.  
 - **Rationale:** [pacer-rationale.md](pacer-rationale.md) — Design choices, DAG/DoD arguments.  
 - **Evidence Pack:** [pacer-evidence.md](pacer-evidence.md) — Templates, metrics, procedures.  
-- **Schema:** [pacer.schema.json](docs/pacer/machine/pacer.schema.json) — Validation.
+- **Schema:** [pacer.schema.json](machine/pacer.schema.json) — Validation.
 
 ---
 

@@ -5,13 +5,13 @@
 Point your IDE's AI directly at:
 
 * **Canonical JSON (full spec for agents):**
-  [docs/pacer/pacer-machine.json](docs/pacer//pacer-machine.json)
+  [pacer-machine.json](../pacer-machine.json)
 
 * **YAML equivalent (some AIs prefer YAML):**
-  [docs/pacer/pacer-machine.yaml](docs/pacer/pacer-machine.yaml)
+  [pacer-machine.yaml](../pacer-machine.yaml)
 
 * **Commands pack (JSONL) for parser testing / few-shot priming:**
-  [docs/pacer/pacer-commands.jsonl](docs/pacer/pacer-commands.jsonl)
+  [pacer-commands.jsonl](../pacer-commands.jsonl)
 
 ### What’s inside the machine file (designed for deterministic AI behavior)
 
